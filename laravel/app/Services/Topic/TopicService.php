@@ -20,7 +20,7 @@ class TopicService extends BaseService implements TopicServiceInterface
         // addslashes là một hàm được sử dụng để thêm các ký tự backslashes (\) vào trước các ký tự đặc biệt trong chuỗi.
         $condition['search'] = addslashes(request('search'));
         $condition['publish'] = request('publish');
-        $select = ['id', 'name', 'publish', 'description', 'canonical', 'image'];
+        $select = ['id', 'name', 'publish', 'description', 'canonical'];
 
         if (request('pageSize') && request('page')) {
 
@@ -102,8 +102,8 @@ class TopicService extends BaseService implements TopicServiceInterface
     {
         DB::beginTransaction();
         try {
-            // Xoá mềm
             $this->topicRepository->delete($id);
+
             DB::commit();
             return [
                 'status' => 'success',

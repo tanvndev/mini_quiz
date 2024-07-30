@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\Auth\{
 use App\Http\Controllers\Api\V1\Upload\{UploadController};
 use App\Http\Controllers\Api\V1\Location\{LocationController};
 use App\Http\Controllers\Api\V1\Permission\PermissionController;
+use App\Http\Controllers\Api\V1\Topic\TopicController;
 use App\Http\Controllers\Api\V1\User\{UserCatalogueController, UserController};
 use Illuminate\Support\Facades\Route;
 
@@ -55,21 +56,21 @@ Route::prefix('v1')->group(function () {
             Route::delete('deleteMultiple', [DashboardController::class, 'deleteMultiple'])->name('deleteMultiple');
         });
 
-        // USER ROUTE
+        // USER CATALOGUE ROUTE
         // * Neu dung resource de tao .../catalogues thi phai gan them name neu khong se bi loi
-        // Route::resource('users/catalogues', UserCatalogueController::class)->names([
-        //     'index' => 'users.catalogues.index',
-        //     'store' => 'users.catalogues.store',
-        //     'show' => 'users.catalogues.show',
-        //     'update' => 'users.catalogues.update',
-        //     'destroy' => 'users.catalogues.destroy',
-        // ]);
         Route::prefix('/')->name('users.')->group(function () {
             Route::apiResource('users/catalogues', UserCatalogueController::class);
         });
         Route::put('users/catalogues/permissions/{id}', [UserCatalogueController::class, 'updatePermissions'])->name('users.catalogues.permissions');
+
+        // USER ROUTE
         Route::apiResource('users', UserController::class);
+
+        // PERMISSION ROUTE
         Route::apiResource('permissions', PermissionController::class);
+
+        // TOPIC ROUTE
+        Route::apiResource('topics', TopicController::class);
 
         // Upload ROUTE
         Route::apiResource('uploads', UploadController::class);

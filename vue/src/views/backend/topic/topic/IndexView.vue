@@ -73,11 +73,11 @@ import { useCRUD, usePagination } from '@/composables';
 
 // STATE
 const state = reactive({
-  pageTitle: 'Danh sách thành viên',
-  modelName: 'User',
-  routeCreate: 'user.store',
-  routeUpdate: 'user.update',
-  endpoint: 'users',
+  pageTitle: 'Danh sách chủ đề',
+  modelName: 'Topic',
+  routeCreate: 'topic.store',
+  routeUpdate: 'topic.update',
+  endpoint: 'topics',
   isShowToolbox: false,
   modelIds: [],
   filterOptions: {},
@@ -86,32 +86,23 @@ const state = reactive({
 
 const columns = [
   {
-    title: 'Tên thành viên',
-    dataIndex: 'fullname',
-    key: 'fullname',
-    sorter: (a, b) => a.fullname.localeCompare(b.fullname)
+    title: 'Tên chủ đề',
+    dataIndex: 'name',
+    key: 'name',
+    sorter: (a, b) => a.name.localeCompare(b.name)
   },
   {
-    title: 'Nhóm thành viên',
-    dataIndex: 'user_catalogue',
-    key: 'user_catalogue'
+    title: 'Đường dẫn',
+    dataIndex: 'canonical',
+    key: 'canonical',
+    sorter: (a, b) => a.canonical.localeCompare(b.canonical)
   },
+
   {
-    title: 'Địa chỉ email',
-    dataIndex: 'email',
-    key: 'email',
-    sorter: (a, b) => a.email.localeCompare(b.email)
-  },
-  {
-    title: 'Số điện thoại',
-    dataIndex: 'phone',
-    key: 'phone',
-    sorter: (a, b) => a.phone.localeCompare(b.phone)
-  },
-  {
-    title: 'Địa chỉ',
-    dataIndex: 'address',
-    key: 'address'
+    title: 'Mô tả',
+    dataIndex: 'description',
+    key: 'description',
+    sorter: (a, b) => a.description.localeCompare(b.description)
   },
   {
     title: 'Tình trạng',
