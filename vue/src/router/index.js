@@ -4,9 +4,8 @@ import store from '@/store';
 import DashboardView from '@/views/backend/DashboardView.vue';
 import { FileManager } from '@/components/backend';
 import { isLoggedIn } from '@/middlewares/authenticate';
-import { isAdmin } from '@/middlewares/authorization';
-import userRoutes from './backend/userRoutes';
-import authRoutes from './backend/authRoutes';
+
+import { authRoutes, userRoutes, topicRoutes } from '@/router/backend';
 
 const routes = [
   {
@@ -31,7 +30,8 @@ const routes = [
     beforeEnter: [isLoggedIn]
   },
   ...userRoutes,
-  ...authRoutes
+  ...authRoutes,
+  ...topicRoutes
 ];
 
 const router = createRouter({

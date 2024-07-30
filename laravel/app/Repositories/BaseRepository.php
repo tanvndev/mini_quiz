@@ -168,7 +168,6 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
 
-    // Xoá cứng
     public function forceDelete($modelId)
     {
         $delete = $this->findById($modelId);

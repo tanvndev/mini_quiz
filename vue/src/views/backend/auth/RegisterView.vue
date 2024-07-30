@@ -31,7 +31,7 @@
             </div>
           </div>
           <form @submit.prevent="onSubmit">
-            <AleartError :errors="errors" />
+            <AleartError :errors="state.errors" />
             <div class="mb-5">
               <InputComponent label="Họ và tên" name="fullname" type="text" />
             </div>
@@ -42,7 +42,7 @@
               <InputComponent label="Mật khẩu" name="password" type="password" />
             </div>
             <a-button
-              :loading="loading"
+              :loading="state.loading"
               type="primary"
               size="large"
               html-type="submit"
@@ -60,16 +60,22 @@
 import { InputComponent, AleartError } from '@/components/backend';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import { RouterLink } from 'vue-router';
 import router from '@/router';
 import { formatMessages } from '@/utils/format';
 import { AuthService } from '@/services';
 import { useAntToast } from '@/utils/antToast';
 
-const loading = ref(false);
-const errors = ref({});
+// STATE
+const state = reactive({
+  errors: {},
+  loading: false
+});
+
 const { showMessage } = useAntToast();
+
+// VALIDATION
 const { handleSubmit } = useForm({
   validationSchema: yup.object({
     fullname: yup.string().required('Họ và tên không được để trống.'),
@@ -84,15 +90,19 @@ const { handleSubmit } = useForm({
   })
 });
 
+// SUBMIT FORM HANDLE
 const onSubmit = handleSubmit(async (values) => {
-  errors.value = {};
-  loading.value = true;
+  state.errors = {};
+  state.loading = true;
+
   const response = await AuthService.register(values);
+
   if (!response.success) {
-    loading.value = false;
-    return (errors.value = formatMessages(response.messages));
+    state.loading = false;
+    return (state.errors = formatMessages(response.messages));
   }
-  loading.value = false;
+
+  state.loading = false;
   showMessage('success', response.messages);
   router.push({ name: 'login' });
 });

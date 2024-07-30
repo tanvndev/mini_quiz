@@ -25,6 +25,18 @@ const sidebar = [
         route: 'permission.index'
       }
     ]
+  },
+  {
+    id: 'topic_sidebar',
+    icon: 'fas fa-book',
+    name: 'QL chủ đề',
+    route: '',
+    subMenu: [
+      {
+        name: 'QL chủ đề',
+        route: 'topic.index'
+      }
+    ]
   }
 ];
 export default sidebar;

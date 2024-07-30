@@ -23,6 +23,8 @@ class AppRepositoryProvider extends ServiceProvider
         'App\Repositories\Interfaces\Location\ProvinceRepositoryInterface' => 'App\Repositories\Location\ProvinceRepository',
         // District
         'App\Repositories\Interfaces\Location\DistrictRepositoryInterface' => 'App\Repositories\Location\DistrictRepository',
+        // Topic
+        'App\Repositories\Interfaces\Topic\TopicRepositoryInterface' => 'App\Repositories\Topic\TopicRepository',
 
     ];
 

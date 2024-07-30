@@ -66,7 +66,10 @@ import { useStore } from 'vuex';
 import { formatMessages } from '@/utils/format';
 
 const store = useStore();
+
 const errors = ref({});
+
+// VALIDATION
 const { handleSubmit } = useForm({
   validationSchema: yup.object({
     email: yup
@@ -80,6 +83,7 @@ const { handleSubmit } = useForm({
   })
 });
 
+// SUBMIT FORM HANDLE
 const onSubmit = handleSubmit(async (values) => {
   errors.value = {};
   await store.dispatch('authStore/login', values);
