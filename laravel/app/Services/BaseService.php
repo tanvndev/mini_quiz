@@ -44,10 +44,10 @@ class BaseService implements BaseServiceInterface
             $this->{$repositoryName}->update(request('modelId'), $payload);
 
             DB::commit();
-            return $this->successResponse('Cập nhập trạng thái thành công.');
+            return successResponse('Cập nhập trạng thái thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->errorResponse('Cập nhập trạng thái thất bại.');
+            return errorResponse('Cập nhập trạng thái thất bại.');
         }
     }
 
@@ -61,10 +61,10 @@ class BaseService implements BaseServiceInterface
             $this->{$repositoryName}->updateByWhereIn('id', request('modelIds'), $payload);
 
             DB::commit();
-            return $this->successResponse('Cập nhập trạng thái thành công.');
+            return successResponse('Cập nhập trạng thái thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->errorResponse('Cập nhập trạng thái thất bại.');
+            return errorResponse('Cập nhập trạng thái thất bại.');
         }
     }
 
@@ -76,28 +76,10 @@ class BaseService implements BaseServiceInterface
             $this->{$repositoryName}->deleteByWhereIn('id', request('modelIds'));
 
             DB::commit();
-            return $this->successResponse('Xoá thành công.');
+            return successResponse('Xoá thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->errorResponse('Xóa thất bại.');
+            return errorResponse('Xóa thất bại.');
         }
-    }
-
-    protected function successResponse(string $message, $data = null): array
-    {
-        return [
-            'status' => 'success',
-            'messages' => $message,
-            'data' => $data
-        ];
-    }
-
-    protected function errorResponse(string $message): array
-    {
-        return [
-            'status' => 'error',
-            'messages' => $message,
-            'data' => null
-        ];
     }
 }

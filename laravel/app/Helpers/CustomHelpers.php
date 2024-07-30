@@ -144,9 +144,6 @@ if (!function_exists('sortString')) {
 }
 
 
-
-
-
 if (!function_exists('generateStar')) {
     function generateStar($rate)
     {
@@ -223,16 +220,6 @@ if (!function_exists('renderProress')) {
 }
 
 
-if (!function_exists('sortAttributeId')) {
-    function sortAttributeId($attributeId)
-    {
-        sort($attributeId, SORT_NUMERIC);
-        $attributeId = implode(", ", $attributeId);
-        return $attributeId;
-    }
-}
-
-
 
 if (!function_exists('convertVndTo')) {
 
@@ -266,21 +253,32 @@ if (!function_exists('abbreviateName')) {
     }
 }
 
-
-if (!function_exists('renderRatingFilter')) {
-    function renderRatingFilter()
+if (!function_exists('errorResponse')) {
+    function errorResponse(string $message): array
     {
-        $html = '';
-        for ($i = 1; $i <= 5; $i++) {
-            $html .= '<div class="mb-3 ps-0 form-check filter-star">';
-            $html .= '<input type="checkbox" class="form-check-input filtering" name="rate[]" value="' . $i . '" id="rate_' . $i . '">';
-            $html .= '<label class="form-check-label" for="rate_' . $i . '">';
-            for ($j = 0; $j < 5; $j++) {
-                $html .= '<i class="flaticon-star me-1 ' . ($i > $j ? 'active' : '') . '"></i>';
-            }
-            $html .= '</label>';
-            $html .= '</div>';
-        }
-        return $html;
+        return [
+            'status' => 'error',
+            'messages' => $message,
+            'data' => null
+        ];
+    }
+}
+
+if (!function_exists('successResponse')) {
+    function successResponse(string $message, $data = null): array
+    {
+        return [
+            'status' => 'success',
+            'messages' => $message,
+            'data' => $data
+        ];
+    }
+}
+
+if (!function_exists('handleResponse')) {
+    function handleResponse($response, $successCode = 200)
+    {
+        $statusCode = $response['status'] === 'success' ? $successCode : 500;
+        return response()->json($response, $statusCode);
     }
 }

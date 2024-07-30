@@ -30,10 +30,6 @@
             @change="handleTableChange"
           >
             <template #bodyCell="{ column, record }">
-              <template v-if="column.dataIndex === 'user_catalogue'">
-                <a-tag color="blue">{{ record.user_catalogue.name }}</a-tag>
-              </template>
-
               <template v-if="column.dataIndex === 'publish'">
                 <PublishSwitchComponent
                   :record="record"
@@ -87,9 +83,9 @@ const state = reactive({
 const columns = [
   {
     title: 'Tiêu đề câu hỏi',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name)
+    dataIndex: 'content',
+    key: 'content',
+    sorter: (a, b) => a.content.localeCompare(b.content)
   },
   {
     title: 'Tình trạng',

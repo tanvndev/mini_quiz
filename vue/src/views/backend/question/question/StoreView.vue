@@ -69,7 +69,6 @@ import {
   MasterLayout,
   BreadcrumbComponent,
   AleartError,
-  InputComponent,
   EditorComponent,
   SelectComponent
 } from '@/components/backend';
@@ -98,13 +97,13 @@ const id = computed(() => router.currentRoute.value.params.id || null);
 
 const { handleSubmit, setValues } = useForm({
   validationSchema: yup.object({
-    content: yup.string().required('Tên câu hỏi không được để trống.')
+    content: yup.string().required('Tên câu hỏi không được để trống.'),
+    topic_id: yup.number().required('Vui lòng chọn chủ đề câu hỏi.'),
+    type: yup.number().required('Vui lòng chọn loại câu hỏi.')
   })
 });
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log(values);
-
   const response =
     id.value && id.value > 0
       ? await update(state.endpoint, id.value, values)
@@ -112,9 +111,10 @@ const onSubmit = handleSubmit(async (values) => {
   if (!response) {
     return (state.error = formatMessages(messages.value));
   }
-  // store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
-  // state.error = {};
-  // router.push({ name: 'topic.index' });
+
+  store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
+  state.error = {};
+  router.push({ name: 'topic.index' });
 });
 
 const fetchOne = async () => {

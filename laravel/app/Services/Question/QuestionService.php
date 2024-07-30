@@ -21,7 +21,7 @@ class QuestionService extends BaseService implements QuestionServiceInterface
             'search' => addslashes(request('search')),
             'publish' => request('publish')
         ];
-        $select = ['id', 'name', 'publish', 'description', 'canonical'];
+        $select = ['id', 'content', 'type'];
         $orderBy = ['id' => 'desc'];
 
         $questions = request('pageSize') && request('page')
@@ -33,7 +33,7 @@ class QuestionService extends BaseService implements QuestionServiceInterface
             return $question;
         });
 
-        return $this->successResponse('', $questions);
+        return successResponse('', $questions);
     }
 
     public function create()
@@ -50,11 +50,11 @@ class QuestionService extends BaseService implements QuestionServiceInterface
             $question->save();
 
             DB::commit();
-            return $this->successResponse('Thêm mới thành công.');
+            return successResponse('Thêm mới thành công.');
         } catch (\Exception $e) {
             dd($e->getMessage());
             DB::rollBack();
-            return $this->errorResponse('Thêm mới thất bại.');
+            return errorResponse('Thêm mới thất bại.');
         }
     }
 
@@ -83,10 +83,10 @@ class QuestionService extends BaseService implements QuestionServiceInterface
             $this->questionRepository->update($id, $payload);
 
             DB::commit();
-            return $this->successResponse('Thêm mới thành công.');
+            return successResponse('Thêm mới thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->errorResponse('Thêm mới thất bại.');
+            return errorResponse('Thêm mới thất bại.');
         }
     }
 
@@ -98,10 +98,10 @@ class QuestionService extends BaseService implements QuestionServiceInterface
             $this->questionRepository->delete($id);
 
             DB::commit();
-            return $this->successResponse('Thêm mới thành công.');
+            return successResponse('Thêm mới thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->errorResponse('Thêm mới thất bại.');
+            return errorResponse('Thêm mới thất bại.');
         }
     }
 }
