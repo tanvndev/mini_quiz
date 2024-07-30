@@ -10,12 +10,12 @@
 </template>
 
 <script setup>
+import { useField } from 'vee-validate';
+
 const emits = defineEmits(['onChange']);
 const handleChange = (value) => {
   emits('onChange', value);
 };
-
-import { useField } from 'vee-validate';
 
 const props = defineProps({
   name: {

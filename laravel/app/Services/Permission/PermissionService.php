@@ -57,7 +57,6 @@ class PermissionService extends BaseService implements PermissionServiceInterfac
             if (isset($payload['canonical']) && strpos($payload['canonical'], ':') !== false) {
 
                 $canonicals = explode(':', $payload['canonical']);
-                // dd($canonicals);
 
                 if (count($canonicals) >= 3) {
                     $canonicalName = trim(lcfirst($canonicals[0]));

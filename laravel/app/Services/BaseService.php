@@ -16,7 +16,6 @@ class BaseService implements BaseServiceInterface
     {
     }
 
-
     protected  function convertToCode($str)
     {
         $newStr = Str::slug($str);
@@ -40,21 +39,15 @@ class BaseService implements BaseServiceInterface
         DB::beginTransaction();
         try {
             $repositoryName = lcfirst(request('modelName')) . 'Repository';
+
             $payload[request('field')] = request('value');
             $this->{$repositoryName}->update(request('modelId'), $payload);
+
             DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Cập nhập trạng thái thành công.',
-                'data' => null
-            ];
+            return $this->successResponse('Cập nhập trạng thái thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => 'Cập nhập trạng thái thất bại.',
-                'data' => null
-            ];
+            return $this->errorResponse('Cập nhập trạng thái thất bại.');
         }
     }
 
@@ -68,42 +61,43 @@ class BaseService implements BaseServiceInterface
             $this->{$repositoryName}->updateByWhereIn('id', request('modelIds'), $payload);
 
             DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Cập nhập trạng thái thành công.',
-                'data' => null
-            ];
+            return $this->successResponse('Cập nhập trạng thái thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => 'Cập nhập trạng thái thất bại.',
-                'data' => null
-            ];
+            return $this->errorResponse('Cập nhập trạng thái thất bại.');
         }
     }
 
     public function deleteMultiple()
     {
-
         DB::beginTransaction();
         try {
             $repositoryName = lcfirst(request('modelName')) . 'Repository';
             $this->{$repositoryName}->deleteByWhereIn('id', request('modelIds'));
 
             DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Xoá thành công.',
-                'data' => null
-            ];
+            return $this->successResponse('Xoá thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => 'Xoá thất bại.',
-                'data' => null
-            ];
+            return $this->errorResponse('Xóa thất bại.');
         }
+    }
+
+    protected function successResponse(string $message, $data = null): array
+    {
+        return [
+            'status' => 'success',
+            'messages' => $message,
+            'data' => $data
+        ];
+    }
+
+    protected function errorResponse(string $message): array
+    {
+        return [
+            'status' => 'error',
+            'messages' => $message,
+            'data' => null
+        ];
     }
 }

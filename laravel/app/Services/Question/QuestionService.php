@@ -17,33 +17,23 @@ class QuestionService extends BaseService implements QuestionServiceInterface
     }
     public function paginate()
     {
-        // addslashes là một hàm được sử dụng để thêm các ký tự backslashes (\) vào trước các ký tự đặc biệt trong chuỗi.
-        $condition['search'] = addslashes(request('search'));
-        $condition['publish'] = request('publish');
-        $select = ['id', 'name', 'publish', 'description', 'canonical'];
-
-        if (request('pageSize') && request('page')) {
-
-            $questions = $this->questionRepository->pagination(
-                $select,
-                $condition,
-                request('pageSize'),
-                ['id' => 'desc'],
-            );
-
-            foreach ($questions as $key => $questionCatalogue) {
-                $questionCatalogue->key = $questionCatalogue->id;
-            }
-        } else {
-            $questions = $this->questionRepository->all($select);
-        }
-
-
-        return [
-            'status' => 'success',
-            'messages' => '',
-            'data' => $questions
+        $condition = [
+            'search' => addslashes(request('search')),
+            'publish' => request('publish')
         ];
+        $select = ['id', 'name', 'publish', 'description', 'canonical'];
+        $orderBy = ['id' => 'desc'];
+
+        $questions = request('pageSize') && request('page')
+            ? $this->questionRepository->pagination($select, $condition, request('pageSize'), $orderBy)
+            : $this->questionRepository->all($select);
+
+        $questions->transform(function ($question) {
+            $question->key = $question->id;
+            return $question;
+        });
+
+        return $this->successResponse('', $questions);
     }
 
     public function create()
@@ -52,25 +42,36 @@ class QuestionService extends BaseService implements QuestionServiceInterface
         try {
             // Lấy ra tất cả các trường và loại bỏ trường bên dưới
             $payload = request()->except('_token');
+            $question = $this->questionRepository->create($payload);
 
-            $this->questionRepository->create($payload);
+            $countCorrectAnswer = $this->createAnswers($question, $payload['answers'] ?? []);
+
+            $question->type = $countCorrectAnswer === 1 ? 'single_choice' : 'multi_choice';
+            $question->save();
 
             DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Thêm mới thành công.',
-                'data' => null
-            ];
+            return $this->successResponse('Thêm mới thành công.');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => $e->getMessage(),
-                'data' => null
-            ];
+            return $this->errorResponse('Thêm mới thất bại.');
         }
     }
 
+    private function createAnswers($question, array $answers): int
+    {
+        $countCorrectAnswer = 0;
+        foreach ($answers as $answer) {
+            $isCorrect = isset($answer['is_correct']) && $answer['is_correct'] == 'true' ? true : false;
+            $countCorrectAnswer += $isCorrect ? 1 : 0;
+            $question->answers()->create([
+                'content' => $answer['content'],
+                'is_correct' => $isCorrect,
+            ]);
+        }
+        // dd($countCorrectAnswer);
+        return $countCorrectAnswer;
+    }
 
     public function update($id)
     {
@@ -82,18 +83,10 @@ class QuestionService extends BaseService implements QuestionServiceInterface
             $this->questionRepository->update($id, $payload);
 
             DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Cập nhập thành công.',
-                'data' => null
-            ];
+            return $this->successResponse('Thêm mới thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => 'Cập nhập thất bại.',
-                'data' => null
-            ];
+            return $this->errorResponse('Thêm mới thất bại.');
         }
     }
 
@@ -105,18 +98,10 @@ class QuestionService extends BaseService implements QuestionServiceInterface
             $this->questionRepository->delete($id);
 
             DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Xóa thành công.',
-                'data' => null
-            ];
+            return $this->successResponse('Thêm mới thành công.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => 'Xóa thất bại.',
-                'data' => null
-            ];
+            return $this->errorResponse('Thêm mới thất bại.');
         }
     }
 }

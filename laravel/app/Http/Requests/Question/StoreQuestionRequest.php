@@ -26,16 +26,16 @@ class StoreQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'canonical' => 'unique:topics',
+            // 'name' => 'required',
+            // 'canonical' => 'unique:topics',
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Tên chủ đề',
-            'canonical' => 'Đường dẫn',
+            // 'name' => 'Tên chủ đề',
+            // 'canonical' => 'Đường dẫn',
         ];
     }
 

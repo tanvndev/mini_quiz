@@ -5,20 +5,47 @@
         <BreadcrumbComponent :titlePage="state.pageTitle" />
         <form @submit.prevent="onSubmit">
           <a-row :gutter="16">
-            <a-col :span="20" class="mx-auto">
-              <a-card class="mt-3" title="Thông tin chung">
+            <a-col :span="18" class="mx-auto">
+              <!-- Question -->
+              <a-card class="mt-3" title="Thông tin chung câu hỏi">
                 <AleartError :errors="state.error" />
                 <a-row :gutter="[16, 16]">
-                  <a-col :span="12">
-                    <InputComponent label="Tên chủ đề" :required="true" name="name" />
+                  <a-col :span="24">
+                    <EditorComponent
+                      :required="true"
+                      type-input="textarea"
+                      label="Nội dung câu hỏi"
+                      name="content"
+                    />
                   </a-col>
-
-                  <a-col :span="12">
-                    <InputComponent label="Đường dẫn" name="canonical" />
+                </a-row>
+              </a-card>
+              <!-- Answer -->
+              <AnswerView />
+            </a-col>
+            <!-- Sidebar -->
+            <a-col :span="6" class="mx-auto">
+              <a-card class="mt-3" title="Thông tin bổ sung">
+                <AleartError :errors="state.error" />
+                <a-row :gutter="[16, 16]">
+                  <a-col :span="24">
+                    <SelectComponent
+                      label="Chủ đề cảu hỏi"
+                      :required="true"
+                      name="topic_id"
+                      :options="state.topics"
+                      placeholder="Chọn chủ đề câu hỏi"
+                    />
                   </a-col>
 
                   <a-col :span="24">
-                    <InputComponent type-input="textarea" label="Mô tả chủ đề" name="description" />
+                    <SelectComponent
+                      label="Loại câu hỏi"
+                      name="type"
+                      :required="true"
+                      :options="QUESTION_TYPE"
+                      placeholder="Chọn loại câu hỏi"
+                    />
                   </a-col>
                 </a-row>
               </a-card>
@@ -42,7 +69,9 @@ import {
   MasterLayout,
   BreadcrumbComponent,
   AleartError,
-  InputComponent
+  InputComponent,
+  EditorComponent,
+  SelectComponent
 } from '@/components/backend';
 import { computed, onMounted, reactive } from 'vue';
 import { useForm } from 'vee-validate';
@@ -51,26 +80,31 @@ import { formatDataToSelect, formatMessages } from '@/utils/format';
 import * as yup from 'yup';
 import router from '@/router';
 import { useCRUD } from '@/composables';
+import { QUESTION_TYPE } from '@/static/constants';
+import AnswerView from './partials/AnswerView.vue';
 
 const store = useStore();
-const { getOne, create, update, messages, data, loading } = useCRUD();
+const { getOne, create, getAll, update, messages, data, loading } = useCRUD();
 
 // STATE
 const state = reactive({
-  error: {},
-  endpoint: 'topics',
-  pageTitle: 'Thêm mới chủ đề'
+  endpoint: 'questions',
+  pageTitle: 'Thêm mới câu hỏi',
+  topics: [],
+  error: {}
 });
 
 const id = computed(() => router.currentRoute.value.params.id || null);
 
 const { handleSubmit, setValues } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required('Tên chủ đề không được để trống.')
+    content: yup.string().required('Tên câu hỏi không được để trống.')
   })
 });
 
 const onSubmit = handleSubmit(async (values) => {
+  console.log(values);
+
   const response =
     id.value && id.value > 0
       ? await update(state.endpoint, id.value, values)
@@ -78,9 +112,9 @@ const onSubmit = handleSubmit(async (values) => {
   if (!response) {
     return (state.error = formatMessages(messages.value));
   }
-  store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
-  state.error = {};
-  router.push({ name: 'topic.index' });
+  // store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
+  // state.error = {};
+  // router.push({ name: 'topic.index' });
 });
 
 const fetchOne = async () => {
@@ -92,10 +126,16 @@ const fetchOne = async () => {
   });
 };
 
+const getTopics = async () => {
+  await getAll('topics');
+  state.topics = formatDataToSelect(data.value);
+};
+
 onMounted(async () => {
   if (id.value) {
     fetchOne();
-    state.pageTitle = 'Cập nhập chủ đề.';
+    state.pageTitle = 'Cập nhập câu hỏi.';
   }
+  getTopics();
 });
 </script>

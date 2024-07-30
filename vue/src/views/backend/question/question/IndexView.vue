@@ -73,11 +73,11 @@ import { useCRUD, usePagination } from '@/composables';
 
 // STATE
 const state = reactive({
-  pageTitle: 'Danh sách chủ đề',
-  modelName: 'Topic',
-  routeCreate: 'topic.store',
-  routeUpdate: 'topic.update',
-  endpoint: 'topics',
+  pageTitle: 'Danh sách câu hỏi',
+  modelName: 'Question',
+  routeCreate: 'question.store',
+  routeUpdate: 'question.update',
+  endpoint: 'questions',
   isShowToolbox: false,
   modelIds: [],
   filterOptions: {},
@@ -86,23 +86,10 @@ const state = reactive({
 
 const columns = [
   {
-    title: 'Tên chủ đề',
+    title: 'Tiêu đề câu hỏi',
     dataIndex: 'name',
     key: 'name',
     sorter: (a, b) => a.name.localeCompare(b.name)
-  },
-  {
-    title: 'Đường dẫn',
-    dataIndex: 'canonical',
-    key: 'canonical',
-    sorter: (a, b) => a.canonical.localeCompare(b.canonical)
-  },
-
-  {
-    title: 'Mô tả',
-    dataIndex: 'description',
-    key: 'description',
-    sorter: (a, b) => a.description.localeCompare(b.description)
   },
   {
     title: 'Tình trạng',
