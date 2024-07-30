@@ -50,17 +50,33 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Style the scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 5px; /* Default width of the scrollbar */
 }
+
+/* Style the track (part of the scrollbar not covered by the thumb) */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
+
+/* Style the draggable part of the scrollbar (thumb) */
 ::-webkit-scrollbar-thumb {
   background: #acacac;
   border-radius: 10px;
 }
+
+/* Change the thumb color when hovering */
 ::-webkit-scrollbar-thumb:hover {
   background: #797979;
+}
+
+/* Optional: Style the scrollbar in different states */
+::-webkit-scrollbar:vertical {
+  width: 5px; /* Ensure scrollbar width is consistent */
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 5px; /* Set height for horizontal scrollbar */
 }
 </style>

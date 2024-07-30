@@ -7,10 +7,14 @@
       {{ props.uncheckText }}
     </template>
   </a-switch>
+  <span v-if="errorMessage" class="mt-[6px] block text-[12px] text-red-500">{{
+    errorMessage
+  }}</span>
 </template>
 
 <script setup>
 import { useField } from 'vee-validate';
+import { watch } from 'vue';
 
 const emits = defineEmits(['onChange']);
 const handleChange = (value) => {
@@ -33,9 +37,23 @@ const props = defineProps({
   uncheckText: {
     type: String,
     default: ''
+  },
+  oldValue: {
+    type: [String, Number, Array, Object],
+    default: ''
   }
 });
 
 // Tạo field với VeeValidate
 const { value, errorMessage } = useField(props.name);
+
+watch(
+  () => props.oldValue,
+  (newOldValue) => {
+    if (newOldValue !== undefined && newOldValue !== value.value) {
+      value.value = newOldValue;
+    }
+  },
+  { immediate: true }
+); // `immediate` để chạy watcher ngay lập tức
 </script>

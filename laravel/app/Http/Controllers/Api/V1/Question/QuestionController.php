@@ -29,12 +29,21 @@ class QuestionController extends Controller
 
     public function store(StoreQuestionRequest $request)
     {
-        return handleResponse($this->questionService->create(), ResponseEnum::CREATED);
+        return handleResponse(
+            $this->questionService->create(),
+            ResponseEnum::CREATED
+        );
     }
 
     public function show(string $id)
     {
-        $question = new QuestionResource($this->questionRepository->findById($id));
+        $question = new QuestionResource(
+            $this->questionRepository->findById(
+                $id,
+                ['id', 'content', 'type', 'topic_id'],
+                ['answers']
+            )
+        );
         return successResponse('', $question);
     }
 

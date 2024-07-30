@@ -22,6 +22,7 @@
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { useField } from 'vee-validate';
+import { watch } from 'vue';
 
 const props = defineProps({
   required: {
@@ -43,9 +44,24 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: ''
+  },
+  oldValue: {
+    type: [String, Number, Array, Object],
+    default: ''
   }
 });
 
 // Tạo field với VeeValidate
 const { value, errorMessage } = useField(props.name);
+
+// Watch for changes in oldValue and set value accordingly
+watch(
+  () => props.oldValue,
+  (newOldValue) => {
+    if (newOldValue !== undefined && newOldValue !== value.value) {
+      value.value = newOldValue;
+    }
+  },
+  { immediate: true }
+);
 </script>

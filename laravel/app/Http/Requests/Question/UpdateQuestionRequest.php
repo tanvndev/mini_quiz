@@ -25,16 +25,18 @@ class UpdateQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'canonical' => 'unique:topics,canonical,' . $this->topic,
+            'content' => 'required',
+            'type' => 'required',
+            'topic_id' => 'required',
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Tên chủ đề',
-            'canonical' => 'Đường dẫn',
+            'content' => 'Tên chủ đề',
+            'type' => 'Chủ đề cảu hỏi',
+            'topic_id' => 'Chủ đề cảu hỏi',
         ];
     }
 

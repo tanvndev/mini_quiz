@@ -21,7 +21,7 @@
                 </a-row>
               </a-card>
               <!-- Answer -->
-              <AnswerView />
+              <AnswerView :answers="state.answers" />
             </a-col>
             <!-- Sidebar -->
             <a-col :span="6" class="mx-auto">
@@ -90,6 +90,7 @@ const state = reactive({
   endpoint: 'questions',
   pageTitle: 'Thêm mới câu hỏi',
   topics: [],
+  answers: [],
   error: {}
 });
 
@@ -97,7 +98,7 @@ const id = computed(() => router.currentRoute.value.params.id || null);
 
 const { handleSubmit, setValues } = useForm({
   validationSchema: yup.object({
-    content: yup.string().required('Tên câu hỏi không được để trống.'),
+    content: yup.string().required('Nội dung câu hỏi không được để trống.'),
     topic_id: yup.number().required('Vui lòng chọn chủ đề câu hỏi.'),
     type: yup.number().required('Vui lòng chọn loại câu hỏi.')
   })
@@ -120,10 +121,11 @@ const onSubmit = handleSubmit(async (values) => {
 const fetchOne = async () => {
   await getOne(state.endpoint, id.value);
   setValues({
-    name: data.value?.name,
-    description: data.value?.description,
-    canonical: data.value?.canonical
+    content: data.value?.content,
+    topic_id: data.value?.topic_id,
+    type: data.value?.type
   });
+  state.answers = data.value?.answers;
 };
 
 const getTopics = async () => {

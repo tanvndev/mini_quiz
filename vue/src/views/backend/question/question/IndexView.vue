@@ -29,15 +29,10 @@
             :loading="loading"
             @change="handleTableChange"
           >
-            <template #bodyCell="{ column, record }">
-              <template v-if="column.dataIndex === 'publish'">
-                <PublishSwitchComponent
-                  :record="record"
-                  :modelName="state.modelName"
-                  :field="column.dataIndex"
-                />
+            <template #bodyCell="{ column, record, index }">
+              <template v-if="column.dataIndex === 'type'">
+                {{ QUESTION_TYPE[index].label }}
               </template>
-
               <template v-if="column.dataIndex === 'action'">
                 <ActionComponent
                   @onDelete="onDelete"
@@ -61,11 +56,11 @@ import {
   BreadcrumbComponent,
   MasterLayout,
   FilterComponent,
-  PublishSwitchComponent,
   ToolboxComponent,
   ActionComponent
 } from '@/components/backend';
 import { useCRUD, usePagination } from '@/composables';
+import { QUESTION_TYPE } from '@/static/constants';
 
 // STATE
 const state = reactive({
@@ -88,11 +83,13 @@ const columns = [
     sorter: (a, b) => a.content.localeCompare(b.content)
   },
   {
-    title: 'Tình trạng',
-    dataIndex: 'publish',
-    key: 'publish',
-    width: '7%'
+    title: 'Kiểu câu hỏi',
+    dataIndex: 'type',
+    key: 'type',
+    sorter: (a, b) => a.type.localeCompare(b.type),
+    width: '12%'
   },
+
   {
     title: 'Thực thi',
     dataIndex: 'action',

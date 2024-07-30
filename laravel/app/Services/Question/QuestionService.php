@@ -15,6 +15,7 @@ class QuestionService extends BaseService implements QuestionServiceInterface
     ) {
         $this->questionRepository = $questionRepository;
     }
+
     public function paginate()
     {
         $condition = [
@@ -38,24 +39,28 @@ class QuestionService extends BaseService implements QuestionServiceInterface
 
     public function create()
     {
-        DB::beginTransaction();
-        try {
-            // Lấy ra tất cả các trường và loại bỏ trường bên dưới
+        return $this->executeInTransaction(function () {
             $payload = request()->except('_token');
             $question = $this->questionRepository->create($payload);
 
-            $countCorrectAnswer = $this->createAnswers($question, $payload['answers'] ?? []);
+            $this->createAnswersAndUpdateQuestionType($question, $payload);
 
-            $question->type = $countCorrectAnswer === 1 ? 'single_choice' : 'multi_choice';
-            $question->save();
-
-            DB::commit();
             return successResponse('Thêm mới thành công.');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            DB::rollBack();
-            return errorResponse('Thêm mới thất bại.');
-        }
+        }, 'Thêm mới thất bại.');
+    }
+
+    public function update($id)
+    {
+        return $this->executeInTransaction(function () use ($id) {
+            $payload = request()->except('_token', '_method');
+
+            $question = $this->questionRepository->save($id, $payload);
+            $question->answers()->delete();
+
+            $this->createAnswersAndUpdateQuestionType($question, $payload);
+
+            return successResponse('Cập nhập thành công.');
+        }, 'Cập nhập thất bại.');
     }
 
     private function createAnswers($question, array $answers): int
@@ -73,35 +78,19 @@ class QuestionService extends BaseService implements QuestionServiceInterface
         return $countCorrectAnswer;
     }
 
-    public function update($id)
+    private function createAnswersAndUpdateQuestionType($question, array $payload)
     {
-        DB::beginTransaction();
-        try {
-            // Lấy ra tất cả các trường và loại bỏ 2 trường bên dưới
-            $payload = request()->except('_token', '_method');
-
-            $this->questionRepository->update($id, $payload);
-
-            DB::commit();
-            return successResponse('Thêm mới thành công.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return errorResponse('Thêm mới thất bại.');
-        }
+        $countCorrectAnswer = $this->createAnswers($question, $payload['answers']);
+        $question->type = $countCorrectAnswer === 1 ? '1' : '2';
+        $question->save();
     }
 
 
     public function destroy($id)
     {
-        DB::beginTransaction();
-        try {
+        return $this->executeInTransaction(function () use ($id) {
             $this->questionRepository->delete($id);
-
-            DB::commit();
-            return successResponse('Thêm mới thành công.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return errorResponse('Thêm mới thất bại.');
-        }
+            return successResponse('Xóa thành công.');
+        }, 'Xóa thất bại.');
     }
 }

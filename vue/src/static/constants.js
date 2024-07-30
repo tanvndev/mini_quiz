@@ -17,11 +17,11 @@ const PAGESIZE = ['10', '20', '30', '50', '100'];
 
 const QUESTION_TYPE = [
   {
-    value: 'single_choice',
+    value: '1',
     label: 'Chọn 1 đáp án'
   },
   {
-    value: 'multi_choice',
+    value: '2',
     label: 'Chọn nhiều đáp án'
   }
 ];

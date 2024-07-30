@@ -16,10 +16,10 @@ class QuestionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'canonical' => $this->canonical,
-            'name' => $this->name,
-            'description' => $this->description,
-            'publish' => $this->publish
+            'content' => $this->content,
+            'type' => $this->type,
+            'topic_id' => $this->topic_id,
+            'answers' => $this->answers
         ];
     }
 }
