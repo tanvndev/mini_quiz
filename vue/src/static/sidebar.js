@@ -9,7 +9,7 @@ const sidebar = [
   {
     id: 'user_sidebar',
     icon: 'fas fa-users-medical',
-    name: 'QL Thành viên',
+    name: 'Thành viên',
     route: '',
     subMenu: [
       {
@@ -29,14 +29,16 @@ const sidebar = [
   {
     id: 'topic_sidebar',
     icon: 'fas fa-book',
-    name: 'QL chủ đề',
-    route: '',
-    subMenu: [
-      {
-        name: 'QL chủ đề',
-        route: 'topic.index'
-      }
-    ]
+    name: 'Chủ đề',
+    route: 'topic.index',
+    subMenu: []
+  },
+  {
+    id: 'question_sidebar',
+    icon: 'fas fa-university',
+    name: 'Ngân hàng câu hỏi',
+    route: 'question.index',
+    subMenu: []
   }
 ];
 export default sidebar;

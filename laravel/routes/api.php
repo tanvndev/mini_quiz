@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\Auth\{
 use App\Http\Controllers\Api\V1\Upload\{UploadController};
 use App\Http\Controllers\Api\V1\Location\{LocationController};
 use App\Http\Controllers\Api\V1\Permission\PermissionController;
+use App\Http\Controllers\Api\V1\Question\QuestionController;
 use App\Http\Controllers\Api\V1\Topic\TopicController;
 use App\Http\Controllers\Api\V1\User\{UserCatalogueController, UserController};
 use Illuminate\Support\Facades\Route;
@@ -71,6 +72,9 @@ Route::prefix('v1')->group(function () {
 
         // TOPIC ROUTE
         Route::apiResource('topics', TopicController::class);
+
+        // QUESTION ROUTE
+        Route::apiResource('questions', QuestionController::class);
 
         // Upload ROUTE
         Route::apiResource('uploads', UploadController::class);

@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\Upload\UploadServiceInterface' => 'App\Services\Upload\UploadService',
         // Topic
         'App\Services\Interfaces\Topic\TopicServiceInterface' => 'App\Services\Topic\TopicService',
+        // Question
+        'App\Services\Interfaces\Question\QuestionServiceInterface' => 'App\Services\Question\QuestionService',
 
     ];
     public function register(): void
