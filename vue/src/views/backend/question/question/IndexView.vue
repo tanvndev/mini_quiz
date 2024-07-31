@@ -30,6 +30,9 @@
             @change="handleTableChange"
           >
             <template #bodyCell="{ column, record, index }">
+              <template v-if="column.dataIndex === 'content'">
+                <div class="content-html" v-html="record.content"></div>
+              </template>
               <template v-if="column.dataIndex === 'type'">
                 {{ QUESTION_TYPE[index].label }}
               </template>
@@ -147,3 +150,12 @@ const onDelete = (key) => {
 // Lifecycle hook
 onMounted(fetchData);
 </script>
+<style scoped>
+.content-html {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+</style>

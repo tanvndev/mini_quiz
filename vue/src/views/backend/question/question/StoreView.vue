@@ -115,7 +115,7 @@ const onSubmit = handleSubmit(async (values) => {
 
   store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
   state.error = {};
-  router.push({ name: 'topic.index' });
+  router.push({ name: 'question.index' });
 });
 
 const fetchOne = async () => {

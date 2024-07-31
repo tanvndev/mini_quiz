@@ -39,7 +39,7 @@ const props = defineProps({
     default: ''
   },
   oldValue: {
-    type: [String, Number, Array, Object],
+    type: [String, Boolean, Number],
     default: ''
   }
 });

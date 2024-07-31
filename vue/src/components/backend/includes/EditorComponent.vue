@@ -46,8 +46,8 @@ const props = defineProps({
     default: ''
   },
   oldValue: {
-    type: [String, Number, Array, Object],
-    default: ''
+    type: [String, Boolean, Symbol],
+    default: 'Nhập nội dung ở đây'
   }
 });
 
