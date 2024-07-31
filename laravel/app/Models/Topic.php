@@ -18,6 +18,11 @@ class Topic extends Model
         'publish'
     ];
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

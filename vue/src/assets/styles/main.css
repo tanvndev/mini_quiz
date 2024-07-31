@@ -7,6 +7,15 @@
   margin-bottom: 0;
 }
 
+.list-answers .answer-item {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.list-answers .answer-item p {
+  margin-bottom: 0;
+}
+
 /* Ant custom css */
 .ant-card {
   border: none;

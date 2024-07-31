@@ -14,7 +14,7 @@
         >
           <template #extend>
             <!-- Upload file excel -->
-            <UploadView />
+            <UploadView @on-upload="handleOnUpload" />
           </template>
         </ToolboxComponent>
         <!-- End toolbox -->
@@ -34,13 +34,17 @@
             :loading="loading"
             @change="handleTableChange"
           >
-            <template #bodyCell="{ column, record, index }">
+            <template #bodyCell="{ column, record }">
               <template v-if="column.dataIndex === 'content'">
                 <div class="content-html" v-html="record.content"></div>
               </template>
               <template v-if="column.dataIndex === 'type'">
-                {{ QUESTION_TYPE[index].label }}
+                {{ typeText(record.type) }}
               </template>
+              <template v-if="column.dataIndex === 'topic_name'">
+                {{ record.topic.name }}
+              </template>
+
               <template v-if="column.dataIndex === 'action'">
                 <ActionComponent
                   @onDelete="onDelete"
@@ -49,6 +53,17 @@
                   :endpoint="state.endpoint"
                 />
               </template>
+            </template>
+
+            <template #expandedRowRender="{ record }">
+              <h2>Đáp án</h2>
+              <ul class="list-answers mb-0 ml-10 list-disc" v-if="record.answers.length">
+                <li v-for="answer in record.answers" :key="answer.id">
+                  <div class="answer-item" v-html="answer.content"></div>
+                  <i v-if="answer.is_correct" class="fal fa-check-circle ml-2 text-green-500"></i>
+                  <i v-else class="fal fa-times-circle ml-2 text-red-500"></i>
+                </li>
+              </ul>
             </template>
           </a-table>
         </a-card>
@@ -59,7 +74,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, watch } from 'vue';
+import { computed, onMounted, reactive, watch } from 'vue';
 import {
   BreadcrumbComponent,
   MasterLayout,
@@ -79,7 +94,6 @@ const state = reactive({
   routeUpdate: 'question.update',
   endpoint: 'questions',
   isShowToolbox: false,
-  open: false,
   modelIds: [],
   filterOptions: {},
   dataSource: []
@@ -99,6 +113,11 @@ const columns = [
     sorter: (a, b) => a.type.localeCompare(b.type),
     width: '12%'
   },
+  {
+    title: 'Chủ đề',
+    dataIndex: 'topic_name',
+    key: 'topic_name'
+  },
 
   {
     title: 'Thực thi',
@@ -110,13 +129,19 @@ const columns = [
 
 const { getAll, loading } = useCRUD();
 
+const typeText = computed(() => {
+  return (type) => {
+    return QUESTION_TYPE.find((item) => item.value === type).label;
+  };
+});
+
 // Pagination
 const {
   pagination,
   rowSelection,
-  handleTableChange,
   onChangePagination,
   selectedRowKeys,
+  handleTableChange,
   selectedRows
 } = usePagination();
 
@@ -147,6 +172,10 @@ const onFilterOptions = (filterValue) => {
 };
 
 const onChangeToolbox = () => {
+  fetchData();
+};
+
+const handleOnUpload = () => {
   fetchData();
 };
 

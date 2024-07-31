@@ -1,14 +1,14 @@
 <template>
   <a-button type="dashed" class="h-[36px]" @click="state.open = true">
     <i class="fas fa-file-import mr-2"></i>
-    Nhap cau hoi
+    Nhập câu hỏi
   </a-button>
 
   <a-modal v-model:open="state.open" @ok="handleOk">
     <template #title>
       <div class="flex items-center">
-        <h3 class="mb-0 mr-2 text-lg font-bold">Nhap cau hoi vao danh sach</h3>
-        <small class="text-red-500">(Vui long chon file exel)</small>
+        <h3 class="mb-0 mr-2 text-lg font-bold">Nhập hàng loạt câu hỏi</h3>
+        <small class="text-red-500">(Vui lòng chọn file excel)</small>
       </div>
     </template>
     <InputFileComponent name="file" />
@@ -16,28 +16,39 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { reactive } from 'vue';
 import { InputFileComponent } from '@/components/backend';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import { useCRUD } from '@/composables';
+import { formatMessages } from '@/utils/format';
+import store from '@/store';
+
+const { create, messages } = useCRUD();
+
+const emits = defineEmits(['onUpload']);
 
 // STATE
 const state = reactive({
-  open: false
+  open: false,
+  error: {},
+  endpoint: 'questions/importQuestion'
 });
 
-const { handleSubmit } = useForm({
+const { handleSubmit, setValues } = useForm({
   validationSchema: yup.object({
     file: yup
       .mixed()
-      .test('fileRequired', 'Hay chon file.', (value) => value)
-      .test('fileType', 'Vui long cho file excel.', (value) => {
+      .test('fileRequired', 'Vui lòng chọn tệp tin.', (value) => value)
+      .test('fileType', 'Vui lòng chọn đúng định dạng tệp tin là excel.', (value) => {
         if (!value) return true; // allow empty value
+        console.log(value);
         return (
           value &&
           [
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'application/vnd.ms-excel'
+            'application/vnd.ms-excel',
+            'application/wps-office.xlsx'
           ].includes(value.type)
         );
       })
@@ -45,6 +56,15 @@ const { handleSubmit } = useForm({
 });
 
 const handleOk = handleSubmit(async (values) => {
-  console.log(values);
+  const response = await create(state.endpoint, values);
+  if (!response) {
+    return (state.error = formatMessages(messages.value));
+  }
+
+  setValues({ file: '' });
+  state.open = false;
+  store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
+  state.error = {};
+  emits('onUpload');
 });
 </script>

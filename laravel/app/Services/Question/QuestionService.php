@@ -21,13 +21,14 @@ class QuestionService extends BaseService implements QuestionServiceInterface
     {
         $condition = [
             'search' => addslashes(request('search')),
-            'publish' => request('publish')
+            'searchFields' => ['content'],
+            'publish' => request('publish'),
         ];
-        $select = ['id', 'content', 'type'];
+        $select = ['id', 'content', 'type', 'topic_id'];
         $orderBy = ['id' => 'desc'];
 
         $questions = request('pageSize') && request('page')
-            ? $this->questionRepository->pagination($select, $condition, request('pageSize'), $orderBy)
+            ? $this->questionRepository->pagination($select, $condition, request('pageSize'), $orderBy, [], ['topic', 'answers'])
             : $this->questionRepository->all($select);
 
         $questions->transform(function ($question) {
@@ -100,7 +101,7 @@ class QuestionService extends BaseService implements QuestionServiceInterface
         return $this->executeInTransaction(function () {
             $file = request()->file('file');
             Excel::import(new QuestionImport, $file);
-            return successResponse('Xóa thành công.');
-        }, 'Xóa thất bại.');
+            return successResponse('Nhập câu hỏi thành công.');
+        }, 'Nhập câu hỏi thất bại.');
     }
 }

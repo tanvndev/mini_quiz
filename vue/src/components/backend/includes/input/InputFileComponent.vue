@@ -11,7 +11,7 @@
     >
       <a-button v-if="handleUploadMutipleFile()">
         <i class="far fa-upload mr-2"></i>
-        Nhan de tai tep
+        Chọn tệp của bạn
       </a-button>
     </a-upload>
 
