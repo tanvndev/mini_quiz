@@ -11,7 +11,12 @@
           :isShowToolbox="state.isShowToolbox"
           :modelIds="state.modelIds"
           @onChangeToolbox="onChangeToolbox"
-        />
+        >
+          <template #extend>
+            <!-- Upload file excel -->
+            <UploadView />
+          </template>
+        </ToolboxComponent>
         <!-- End toolbox -->
 
         <!-- Filter -->
@@ -64,6 +69,7 @@ import {
 } from '@/components/backend';
 import { useCRUD, usePagination } from '@/composables';
 import { QUESTION_TYPE } from '@/static/constants';
+import UploadView from './partials/UploadView.vue';
 
 // STATE
 const state = reactive({
@@ -73,6 +79,7 @@ const state = reactive({
   routeUpdate: 'question.update',
   endpoint: 'questions',
   isShowToolbox: false,
+  open: false,
   modelIds: [],
   filterOptions: {},
   dataSource: []

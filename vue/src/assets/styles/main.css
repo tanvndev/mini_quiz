@@ -24,6 +24,12 @@
   max-height: 120px;
   object-fit: cover;
 }
+
+.upload-files-container .ant-upload-list-item-container.ant-motion-collapse {
+  display: inline-block;
+  margin-right: 8px;
+}
+
 /* Switch */
 /* The switch - the box around the slider */
 .switch {
