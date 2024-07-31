@@ -2,10 +2,10 @@
 -- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th7 31, 2024 lúc 09:01 AM
--- Phiên bản máy phục vụ: 8.0.37-0ubuntu0.22.04.3
--- Phiên bản PHP: 8.1.2-1ubuntu2.18
+-- Host: localhost:3306
+-- Generation Time: Jul 31, 2024 at 05:13 PM
+-- Server version: 8.0.37-0ubuntu0.22.04.3
+-- PHP Version: 8.1.2-1ubuntu2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `mini_quiz`
+-- Database: `mini_quiz`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `administrative_regions`
+-- Table structure for table `administrative_regions`
 --
 
 CREATE TABLE `administrative_regions` (
@@ -36,7 +36,7 @@ CREATE TABLE `administrative_regions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `administrative_regions`
+-- Dumping data for table `administrative_regions`
 --
 
 INSERT INTO `administrative_regions` (`id`, `name`, `name_en`, `code_name`, `code_name_en`) VALUES
@@ -52,7 +52,7 @@ INSERT INTO `administrative_regions` (`id`, `name`, `name_en`, `code_name`, `cod
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `administrative_units`
+-- Table structure for table `administrative_units`
 --
 
 CREATE TABLE `administrative_units` (
@@ -66,7 +66,7 @@ CREATE TABLE `administrative_units` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `administrative_units`
+-- Dumping data for table `administrative_units`
 --
 
 INSERT INTO `administrative_units` (`id`, `full_name`, `full_name_en`, `short_name`, `short_name_en`, `code_name`, `code_name_en`) VALUES
@@ -84,31 +84,268 @@ INSERT INTO `administrative_units` (`id`, `full_name`, `full_name_en`, `short_na
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `answers`
+-- Table structure for table `answers`
 --
 
 CREATE TABLE `answers` (
   `id` bigint UNSIGNED NOT NULL,
   `question_id` bigint UNSIGNED NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_correct` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `answers`
+-- Dumping data for table `answers`
 --
 
 INSERT INTO `answers` (`id`, `question_id`, `content`, `is_correct`, `created_at`, `updated_at`) VALUES
-(83, 15, '<p>dap an 1</p>', 0, '2024-07-30 14:13:28', '2024-07-30 14:13:28'),
-(84, 15, '<p>dap an 2</p>', 0, '2024-07-30 14:13:28', '2024-07-30 14:13:28'),
-(85, 15, '<p>dap an 3</p>', 1, '2024-07-30 14:13:28', '2024-07-30 14:13:28');
+(1, 1, '1992', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(2, 1, '2001', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(3, 1, '2013', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(4, 1, '2016', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(5, 2, 'Cộng hòa xã hội chủ nghĩa', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(6, 2, 'Cộng hòa dân chủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(7, 2, 'Cộng hòa nhân dân', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(8, 2, 'Cộng hòa lập hiến', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(9, 3, 'Chính phủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(10, 3, 'Quốc hội', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(11, 3, 'Tòa án nhân dân tối cao', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(12, 3, 'Ủy ban nhân dân', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(13, 4, '4 năm', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(14, 4, '5 năm', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(15, 4, '6 năm', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(16, 4, '7 năm', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(17, 5, '200', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(18, 5, '300', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(19, 5, '400', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(20, 5, '500', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(21, 6, 'Chính phủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(22, 6, 'Quốc hội', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(23, 6, 'Chủ tịch nước', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(24, 6, 'Tòa án nhân dân tối cao', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(25, 7, 'Ban hành luật', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(26, 7, 'Phê chuẩn Hiến pháp', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(27, 7, 'Ký kết và phê chuẩn các điều ước quốc tế', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(28, 7, 'Giải tán Quốc hội', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(29, 8, '20', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(30, 8, '21', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(31, 8, '22', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(32, 8, '23', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(33, 9, 'Thủ tướng Chính phủ', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(34, 9, 'Chủ tịch nước', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(35, 9, 'Quốc hội', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(36, 9, 'Chính phủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(37, 10, 'Khi có chiến tranh', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(38, 10, 'Khi có thiên tai', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(39, 10, 'Khi có dịch bệnh', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(40, 10, 'Tất cả các trường hợp trên', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(41, 11, 'Chính phủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(42, 11, 'Hội đồng bầu cử quốc gia', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(43, 11, 'Ủy ban thường vụ Quốc hội', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(44, 11, 'Chủ tịch nước', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(45, 12, 'Luật', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(46, 12, 'Nghị quyết', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(47, 12, 'Nghị định', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(48, 12, 'Quyết định', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(49, 13, 'Chính phủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(50, 13, 'Quốc hội', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(51, 13, 'Chủ tịch nước', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(52, 13, 'Tòa án nhân dân tối cao', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(53, 14, 'Cấp tỉnh', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(54, 14, 'Cấp huyện', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(55, 14, 'Cấp xã', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(56, 14, 'Tất cả các cấp trên', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(57, 15, '4 năm', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(58, 15, '5 năm', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(59, 15, '6 năm', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(60, 15, '7 năm', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(61, 16, 'Ủy ban nhân dân', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(62, 16, 'Tòa án nhân dân', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(63, 16, 'Viện kiểm sát nhân dân', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(64, 16, 'Cả 3 cơ quan trên', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(65, 17, 'Chính phủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(66, 17, 'Quốc hội', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(67, 17, 'Chủ tịch nước', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(68, 17, 'Bộ Ngoại giao', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(69, 18, 'Chính phủ', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(70, 18, 'Quốc hội', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(71, 18, 'Chủ tịch nước', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(72, 18, 'Tòa án nhân dân', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(73, 19, 'Quốc hội', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(74, 19, 'Ủy ban thường vụ Quốc hội', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(75, 19, 'Tòa án nhân dân tối cao', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(76, 19, 'Ủy ban Trung ương Mặt trận Tổ quốc Việt Nam', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(77, 20, 'Chủ tịch nước', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(78, 20, 'Quốc hội', 1, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(79, 20, 'Ủy ban thường vụ Quốc hội', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(80, 20, 'Hội đồng bầu cử quốc gia', 0, '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(81, 21, 'Nguyễn Trãi', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(82, 21, 'Lê Lợi', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(83, 21, 'Trần Hưng Đạo', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(84, 21, 'Phan Bội Châu', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(85, 22, 'Hà Nội', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(86, 22, 'Hải Phòng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(87, 22, 'Quảng Ngãi', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(88, 22, 'Thái Nguyên', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(89, 23, 'Phạm Văn Đồng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(90, 23, 'Trần Phú', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(91, 23, 'Hồ Chí Minh', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(92, 23, 'Nguyễn Ái Quốc', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(93, 24, '1945', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(94, 24, '1946', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(95, 24, '1954', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(96, 24, '1955', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(97, 25, 'Vĩ tuyến 16', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(98, 25, 'Vĩ tuyến 17', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(99, 25, 'Vĩ tuyến 18', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(100, 25, 'Vĩ tuyến 19', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(101, 26, 'Đại Việt', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(102, 26, 'Đại Cồ Việt', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(103, 26, 'Nam Việt', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(104, 26, 'Đại Nam', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(105, 27, 'Gia Long', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(106, 27, 'Minh Mạng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(107, 27, 'Tự Đức', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(108, 27, 'Bảo Đại', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(109, 28, 'Việt Nam Quốc dân đảng', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(110, 28, 'Đông Dương Cộng sản Đảng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(111, 28, 'An Nam Cộng sản Đảng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(112, 28, 'Tân Việt Cách mạng Đảng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(113, 29, 'Võ Nguyên Giáp', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(114, 29, 'Trường Chinh', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(115, 29, 'Nguyễn Chí Thanh', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(116, 29, 'Nguyễn Giáp', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(117, 30, '30 tháng 4', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(118, 30, '19 tháng 5', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(119, 30, '2 tháng 9', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(120, 30, '3 tháng 2', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(121, 31, '1945', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(122, 31, '1946', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(123, 31, '1947', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(124, 31, '1948', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(125, 32, '1975', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(126, 32, '1976', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(127, 32, '1977', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(128, 32, '1978', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(129, 33, 'Hồ Chí Minh', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(130, 33, 'Tôn Đức Thắng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(131, 33, 'Nguyễn Lương Bằng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(132, 33, 'Trường Chinh', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(133, 34, '938', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(134, 34, '939', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(135, 34, '940', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(136, 34, '941', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(137, 35, 'Trưng Trắc', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(138, 35, 'Trưng Nhị', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(139, 35, 'Trần Quang Diệu', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(140, 35, 'Phùng Hưng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(141, 36, 'Nhà Đường', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(142, 36, 'Nhà Hán', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(143, 36, 'Nhà Tùy', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(144, 36, 'Nhà Ngô', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(145, 37, 'Trường Chinh', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(146, 37, 'Phạm Văn Đồng', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(147, 37, 'Nguyễn Ái Quốc', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(148, 37, 'Lê Duẩn', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(149, 38, 'Gia Lai', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(150, 38, 'Kon Tum', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(151, 38, 'Đắk Lắk', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(152, 38, 'Pleiku', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(153, 39, 'Triệu Thị Trinh', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(154, 39, 'Bùi Thị Xuân', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(155, 39, 'Nguyễn Thị Định', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(156, 39, 'Lê Thị Hồng Gấm', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(157, 40, 'Đại Cồ Việt', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(158, 40, 'Đại Việt', 1, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(159, 40, 'Đại Nam', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(160, 40, 'Đại Ngu', 0, '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(161, 41, 'Đỉnh Phan Xi Păng', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(162, 41, 'Đỉnh Tây Côn Lĩnh', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(163, 41, 'Đỉnh Pu Si Lung', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(164, 41, 'Đỉnh Ngọc Linh', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(165, 42, 'Sông Mê Kông', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(166, 42, 'Sông Hồng', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(167, 42, 'Sông Đà', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(168, 42, 'Sông Đồng Nai', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(169, 43, 'Vịnh Hạ Long', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(170, 43, 'Vịnh Lan Hạ', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(171, 43, 'Vịnh Xuân Đài', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(172, 43, 'Vịnh Cam Ranh', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(173, 44, 'Phía Đông', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(174, 44, 'Phía Tây', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(175, 44, 'Phía Nam', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(176, 44, 'Phía Bắc', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(177, 45, 'Hà Nội', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(178, 45, 'TP. Hồ Chí Minh', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(179, 45, 'Đà Nẵng', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(180, 45, 'Huế', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(181, 46, 'Hồ Tây', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(182, 46, 'Hồ Hoàn Kiếm', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(183, 46, 'Hồ Trúc Bạch', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(184, 46, 'Hồ Bảy Mẫu', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(185, 47, 'Đông Á', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(186, 47, 'Đông Nam Á', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(187, 47, 'Nam Á', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(188, 47, 'Tây Á', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(189, 48, 'Đồng bằng sông Hồng', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(190, 48, 'Đồng bằng sông Cửu Long', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(191, 48, 'Đồng bằng Trung Bộ', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(192, 48, 'Đồng bằng Bắc Bộ', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(193, 49, '61', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(194, 49, '63', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(195, 49, '64', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(196, 49, '65', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(197, 50, 'Tây Ninh', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(198, 50, 'Bình Dương', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(199, 50, 'Ninh Thuận', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(200, 50, 'Bình Phước', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(201, 51, 'Đèo Hải Vân', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(202, 51, 'Đèo Ngang', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(203, 51, 'Đèo Cả', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(204, 51, 'Đèo Pha Đin', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(205, 52, 'Khánh Hòa', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(206, 52, 'Bình Thuận', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(207, 52, 'Ninh Thuận', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(208, 52, 'Phú Yên', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(209, 53, 'Nghệ An', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(210, 53, 'Gia Lai', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(211, 53, 'Đồng Nai', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(212, 53, 'Kon Tum', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(213, 54, 'Hà Nội', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(214, 54, 'Đà Nẵng', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(215, 54, 'Cần Thơ', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(216, 54, 'Hải Phòng', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(217, 55, 'Thừa Thiên Huế', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(218, 55, 'Quảng Bình', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(219, 55, 'Đà Nẵng', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(220, 55, 'Hà Tĩnh', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(221, 56, 'Thừa Thiên Huế', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(222, 56, 'Quảng Bình', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(223, 56, 'Quảng Ngãi', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(224, 56, 'Quảng Nam', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(225, 57, 'Trung Quốc', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(226, 57, 'Lào', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(227, 57, 'Campuchia', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(228, 57, 'Thái Lan', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(229, 58, 'Kiên Giang', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(230, 58, 'An Giang', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(231, 58, 'Cà Mau', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(232, 58, 'Bình Thuận', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(233, 59, 'Thừa Thiên Huế và Quảng Nam', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(234, 59, 'Đà Nẵng và Quảng Ngãi', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(235, 59, 'Quảng Ngãi và Bình Định', 0, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(236, 59, 'Đà Nẵng và Thừa Thiên Huế', 1, '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(241, 60, '<p>10</p>', 0, '2024-07-31 09:57:20', '2024-07-31 09:57:20'),
+(242, 60, '<p>12</p>', 1, '2024-07-31 09:57:20', '2024-07-31 09:57:20'),
+(243, 60, '<p>13</p>', 0, '2024-07-31 09:57:20', '2024-07-31 09:57:20'),
+(244, 60, '<p>14</p>', 1, '2024-07-31 09:57:20', '2024-07-31 09:57:20');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `districts`
+-- Table structure for table `districts`
 --
 
 CREATE TABLE `districts` (
@@ -123,7 +360,7 @@ CREATE TABLE `districts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `districts`
+-- Dumping data for table `districts`
 --
 
 INSERT INTO `districts` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `code_name`, `province_code`, `administrative_unit_id`) VALUES
@@ -837,7 +1074,7 @@ INSERT INTO `districts` (`code`, `name`, `name_en`, `full_name`, `full_name_en`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -851,7 +1088,7 @@ CREATE TABLE `failed_jobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `failed_jobs`
+-- Dumping data for table `failed_jobs`
 --
 
 INSERT INTO `failed_jobs` (`id`, `uuid`, `connection`, `queue`, `payload`, `exception`, `failed_at`) VALUES
@@ -860,7 +1097,7 @@ INSERT INTO `failed_jobs` (`id`, `uuid`, `connection`, `queue`, `payload`, `exce
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `jobs`
+-- Table structure for table `jobs`
 --
 
 CREATE TABLE `jobs` (
@@ -876,7 +1113,7 @@ CREATE TABLE `jobs` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -886,7 +1123,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -905,7 +1142,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `password_reset_tokens`
+-- Table structure for table `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -917,7 +1154,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permissions`
+-- Table structure for table `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -929,7 +1166,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `permissions`
+-- Dumping data for table `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`) VALUES
@@ -953,7 +1190,7 @@ INSERT INTO `permissions` (`id`, `name`, `canonical`, `created_at`, `updated_at`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permission_user_catalogue`
+-- Table structure for table `permission_user_catalogue`
 --
 
 CREATE TABLE `permission_user_catalogue` (
@@ -962,7 +1199,7 @@ CREATE TABLE `permission_user_catalogue` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `permission_user_catalogue`
+-- Dumping data for table `permission_user_catalogue`
 --
 
 INSERT INTO `permission_user_catalogue` (`user_catalogue_id`, `permission_id`) VALUES
@@ -986,7 +1223,7 @@ INSERT INTO `permission_user_catalogue` (`user_catalogue_id`, `permission_id`) V
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `personal_access_tokens`
+-- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -1005,7 +1242,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `provinces`
+-- Table structure for table `provinces`
 --
 
 CREATE TABLE `provinces` (
@@ -1020,7 +1257,7 @@ CREATE TABLE `provinces` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `provinces`
+-- Dumping data for table `provinces`
 --
 
 INSERT INTO `provinces` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `code_name`, `administrative_unit_id`, `administrative_region_id`) VALUES
@@ -1091,36 +1328,95 @@ INSERT INTO `provinces` (`code`, `name`, `name_en`, `full_name`, `full_name_en`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `questions`
+-- Table structure for table `questions`
 --
 
 CREATE TABLE `questions` (
   `id` bigint UNSIGNED NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `topic_id` bigint UNSIGNED NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `questions`
+-- Dumping data for table `questions`
 --
 
 INSERT INTO `questions` (`id`, `type`, `topic_id`, `content`, `created_at`, `updated_at`) VALUES
-(15, '1', 1, '<p>cau hoi 1</p>', '2024-07-30 09:21:11', '2024-07-30 14:13:28');
+(1, '1', 1, 'Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam hiện hành được ban hành vào năm nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(2, '1', 1, 'Theo Hiến pháp năm 2013, nước Cộng hòa xã hội chủ nghĩa Việt Nam theo chế độ chính trị nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(3, '1', 1, 'Cơ quan lập pháp cao nhất của Việt Nam là cơ quan nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(4, '1', 1, 'Thời hạn nhiệm kỳ của Quốc hội Việt Nam là bao nhiêu năm?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(5, '1', 1, 'Theo Luật tổ chức Quốc hội năm 2014, Quốc hội Việt Nam có bao nhiêu đại biểu?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(6, '1', 1, 'Theo Hiến pháp năm 2013, quyền lập pháp ở Việt Nam thuộc về cơ quan nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(7, '1', 1, 'Chủ tịch nước có quyền hạn nào sau đây?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(8, '1', 1, 'Theo Luật tổ chức Chính phủ năm 2015, Chính phủ Việt Nam có bao nhiêu bộ và cơ quan ngang bộ?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(9, '1', 1, 'Thẩm quyền ban hành pháp luật của Chính phủ Việt Nam thuộc về ai?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(10, '1', 1, 'Theo Hiến pháp năm 2013, quyền công dân có thể bị giới hạn trong trường hợp nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(11, '1', 1, 'Cơ quan nào có thẩm quyền tổ chức bầu cử đại biểu Quốc hội?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(12, '1', 1, 'Theo Luật tổ chức Chính phủ năm 2015, Thủ tướng Chính phủ có quyền ban hành loại văn bản nào sau đây?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(13, '1', 1, 'Theo Hiến pháp năm 2013, quyền lực nhà nước thuộc về nhân dân và được thực hiện thông qua cơ quan nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(14, '1', 1, 'Theo Luật tổ chức chính quyền địa phương năm 2015, cấp chính quyền địa phương gồm những cấp nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(15, '1', 1, 'Thời hạn nhiệm kỳ của Hội đồng nhân dân các cấp là bao nhiêu năm?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(16, '1', 1, 'Theo Luật tổ chức chính quyền địa phương năm 2015, cơ quan hành chính nhà nước ở địa phương gồm những cơ quan nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(17, '1', 1, 'Theo Hiến pháp năm 2013, cơ quan nào có quyền phê chuẩn các hiệp định quốc tế mà Việt Nam tham gia?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(18, '1', 1, 'Theo Hiến pháp năm 2013, quyền lực tư pháp ở Việt Nam thuộc về cơ quan nào?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(19, '1', 1, 'Cơ quan nào có thẩm quyền giám sát hoạt động của Chính phủ Việt Nam?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(20, '1', 1, 'Theo Hiến pháp năm 2013, cơ quan nào có quyền bãi nhiệm đại biểu Quốc hội?', '2024-07-31 09:27:11', '2024-07-31 09:27:11'),
+(21, '1', 2, 'Ai là người lãnh đạo cuộc khởi nghĩa Lam Sơn?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(22, '1', 2, 'Cuộc cách mạng tháng Tám năm 1945 ở Việt Nam bắt đầu từ tỉnh nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(23, '1', 2, 'Ai là người sáng lập Đảng Cộng sản Việt Nam?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(24, '1', 2, 'Chiến thắng Điện Biên Phủ diễn ra vào năm nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(25, '1', 2, 'Hiệp định Genève năm 1954 đã chia Việt Nam thành hai vùng tập kết quân sự ở vĩ tuyến nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(26, '1', 2, 'Quốc hiệu của Việt Nam trong thời kỳ nhà Trần là gì?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(27, '1', 2, 'Ai là vị vua đầu tiên của triều đại nhà Nguyễn?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(28, '1', 2, 'Cuộc khởi nghĩa Yên Bái năm 1930 do tổ chức nào lãnh đạo?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(29, '1', 2, 'Ai là tổng tư lệnh Quân đội nhân dân Việt Nam trong chiến dịch Điện Biên Phủ?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(30, '1', 2, 'Ngày Quốc khánh nước Cộng hòa xã hội chủ nghĩa Việt Nam là ngày nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(31, '1', 2, 'Chính phủ Việt Nam Dân chủ Cộng hòa được thành lập vào năm nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(32, '1', 2, 'Chiến dịch Hồ Chí Minh lịch sử diễn ra vào năm nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(33, '1', 2, 'Ai là Chủ tịch nước đầu tiên của nước Cộng hòa xã hội chủ nghĩa Việt Nam?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(34, '1', 2, 'Thời kỳ Bắc thuộc lần thứ nhất kết thúc vào năm nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(35, '1', 2, 'Ai là người khởi xướng cuộc khởi nghĩa Hai Bà Trưng?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(36, '1', 2, 'Chiến thắng Bạch Đằng năm 938 đã kết thúc sự xâm lược của triều đại nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(37, '1', 2, 'Ai là người viết bản Tuyên ngôn Độc lập năm 1945?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(38, '1', 2, 'Chiến dịch Tây Nguyên năm 1975 bắt đầu từ tỉnh nào?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(39, '1', 2, 'Ai là người lãnh đạo cuộc khởi nghĩa Bà Triệu?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(40, '1', 2, 'Quốc hiệu của Việt Nam trong thời kỳ nhà Lý là gì?', '2024-07-31 09:28:36', '2024-07-31 09:28:36'),
+(41, '1', 3, 'Đỉnh núi cao nhất ở Việt Nam là đỉnh nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(42, '1', 3, 'Sông nào dài nhất Việt Nam?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(43, '1', 3, 'Vịnh nào được UNESCO công nhận là Di sản thiên nhiên thế giới?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(44, '1', 3, 'Biển Đông bao bọc Việt Nam ở phía nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(45, '1', 3, 'Thủ đô của Việt Nam là thành phố nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(46, '1', 3, 'Hồ nào lớn nhất ở Hà Nội?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(47, '1', 3, 'Việt Nam nằm ở khu vực nào của châu Á?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(48, '1', 3, 'Đồng bằng lớn nhất ở Việt Nam là đồng bằng nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(49, '1', 3, 'Việt Nam có bao nhiêu tỉnh thành?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(50, '1', 3, 'Núi Bà Đen thuộc tỉnh nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(51, '1', 3, 'Đèo nào dài nhất Việt Nam?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(52, '1', 3, 'Huyện đảo Trường Sa thuộc tỉnh nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(53, '1', 3, 'Tỉnh nào có diện tích lớn nhất Việt Nam?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(54, '1', 3, 'Thành phố nào lớn nhất Việt Nam?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(55, '1', 3, 'Sông Hương chảy qua tỉnh nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(56, '1', 3, 'Núi Bạch Mã thuộc tỉnh nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(57, '1', 3, 'Quốc gia nào không có chung biên giới với Việt Nam?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(58, '1', 3, 'Đảo Phú Quốc thuộc tỉnh nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(59, '1', 3, 'Đèo Hải Vân nối liền hai tỉnh nào?', '2024-07-31 09:30:18', '2024-07-31 09:30:18'),
+(60, '2', 3, '<p>Sông Cửu Long chảy qua bao nhiêu tỉnh thành ở Việt Nam?</p>', '2024-07-31 09:30:18', '2024-07-31 09:57:20');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `topics`
+-- Table structure for table `topics`
 --
 
 CREATE TABLE `topics` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `canonical` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `canonical` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `publish` tinyint NOT NULL DEFAULT '1' COMMENT '1: Active, 2: Inactive',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1128,18 +1424,21 @@ CREATE TABLE `topics` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `topics`
+-- Dumping data for table `topics`
 --
 
 INSERT INTO `topics` (`id`, `name`, `canonical`, `description`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 'Pháp luật', 'phap-luat', 'Bao gồm các chủ bài kiểm tra về pháp luật', 1, NULL, '2024-07-30 03:31:36', '2024-07-30 03:31:36'),
 (2, 'Lịch sử', 'lich-su', 'Bao gồm các chủ đề về lịch sử', 1, NULL, '2024-07-30 03:32:21', '2024-07-30 03:34:17'),
-(3, 'Địa lý', 'dia-ly', 'Bao gồm các chủ đề về địa lý', 1, NULL, '2024-07-30 03:32:51', '2024-07-30 03:32:51');
+(3, 'Địa lý', 'dia-ly', 'Bao gồm các chủ đề về địa lý', 1, NULL, '2024-07-30 03:32:51', '2024-07-30 03:32:51'),
+(5, 'Hóa học', 'hoa-hoc', 'Bao gồm các chủ đề về hóa học', 1, NULL, '2024-07-31 09:04:48', '2024-07-31 09:04:48'),
+(6, 'Sinh học', 'sinh-hoc', 'Bao gồm các chủ đề về sinh học', 1, NULL, '2024-07-31 09:05:05', '2024-07-31 09:05:05'),
+(8, 'Giáo dục công đân', 'giao-duc-cong-dan', 'Bao gồm các chủ đề về giáo dục công dân', 1, NULL, '2024-07-31 09:05:46', '2024-07-31 09:05:46');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -1168,7 +1467,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `user_catalogue_id`, `google_id`, `password`, `phone`, `province_id`, `district_id`, `ward_id`, `address`, `birthday`, `image`, `description`, `user_agent`, `publish`, `ip`, `email_verified_at`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -1179,7 +1478,7 @@ INSERT INTO `users` (`id`, `fullname`, `email`, `user_catalogue_id`, `google_id`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user_catalogues`
+-- Table structure for table `user_catalogues`
 --
 
 CREATE TABLE `user_catalogues` (
@@ -1194,7 +1493,7 @@ CREATE TABLE `user_catalogues` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `user_catalogues`
+-- Dumping data for table `user_catalogues`
 --
 
 INSERT INTO `user_catalogues` (`id`, `name`, `code`, `description`, `publish`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -1205,7 +1504,7 @@ INSERT INTO `user_catalogues` (`id`, `name`, `code`, `description`, `publish`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wards`
+-- Table structure for table `wards`
 --
 
 CREATE TABLE `wards` (
@@ -1220,7 +1519,7 @@ CREATE TABLE `wards` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wards`
+-- Dumping data for table `wards`
 --
 
 INSERT INTO `wards` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `code_name`, `district_code`, `administrative_unit_id`) VALUES
@@ -11843,30 +12142,30 @@ INSERT INTO `wards` (`code`, `name`, `name_en`, `full_name`, `full_name_en`, `co
 ('32248', 'Đất Mũi', 'Dat Mui', 'Xã Đất Mũi', 'Dat Mui Commune', 'dat_mui', '973', 10);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `administrative_regions`
+-- Indexes for table `administrative_regions`
 --
 ALTER TABLE `administrative_regions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `administrative_units`
+-- Indexes for table `administrative_units`
 --
 ALTER TABLE `administrative_units`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `answers`
+-- Indexes for table `answers`
 --
 ALTER TABLE `answers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `answers_question_id_foreign` (`question_id`);
 
 --
--- Chỉ mục cho bảng `districts`
+-- Indexes for table `districts`
 --
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`code`),
@@ -11874,47 +12173,47 @@ ALTER TABLE `districts`
   ADD KEY `idx_districts_unit` (`administrative_unit_id`);
 
 --
--- Chỉ mục cho bảng `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Chỉ mục cho bảng `jobs`
+-- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
 
 --
--- Chỉ mục cho bảng `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `password_reset_tokens`
+-- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Chỉ mục cho bảng `permissions`
+-- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `permissions_canonical_unique` (`canonical`);
 
 --
--- Chỉ mục cho bảng `permission_user_catalogue`
+-- Indexes for table `permission_user_catalogue`
 --
 ALTER TABLE `permission_user_catalogue`
   ADD KEY `permission_user_catalogue_user_catalogue_id_foreign` (`user_catalogue_id`),
   ADD KEY `permission_user_catalogue_permission_id_foreign` (`permission_id`);
 
 --
--- Chỉ mục cho bảng `personal_access_tokens`
+-- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -11922,7 +12221,7 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Chỉ mục cho bảng `provinces`
+-- Indexes for table `provinces`
 --
 ALTER TABLE `provinces`
   ADD PRIMARY KEY (`code`),
@@ -11930,21 +12229,21 @@ ALTER TABLE `provinces`
   ADD KEY `idx_provinces_unit` (`administrative_unit_id`);
 
 --
--- Chỉ mục cho bảng `questions`
+-- Indexes for table `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `questions_topic_id_foreign` (`topic_id`);
 
 --
--- Chỉ mục cho bảng `topics`
+-- Indexes for table `topics`
 --
 ALTER TABLE `topics`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `topics_canonical_unique` (`canonical`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -11953,13 +12252,13 @@ ALTER TABLE `users`
   ADD KEY `users_user_catalogue_id_foreign` (`user_catalogue_id`);
 
 --
--- Chỉ mục cho bảng `user_catalogues`
+-- Indexes for table `user_catalogues`
 --
 ALTER TABLE `user_catalogues`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `wards`
+-- Indexes for table `wards`
 --
 ALTER TABLE `wards`
   ADD PRIMARY KEY (`code`),
@@ -11967,114 +12266,114 @@ ALTER TABLE `wards`
   ADD KEY `idx_wards_unit` (`administrative_unit_id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `answers`
+-- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
 
 --
--- AUTO_INCREMENT cho bảng `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `jobs`
+-- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT cho bảng `permissions`
+-- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT cho bảng `personal_access_tokens`
+-- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `questions`
+-- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT cho bảng `topics`
+-- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `user_catalogues`
+-- AUTO_INCREMENT for table `user_catalogues`
 --
 ALTER TABLE `user_catalogues`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `answers`
+-- Constraints for table `answers`
 --
 ALTER TABLE `answers`
   ADD CONSTRAINT `answers_question_id_foreign` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `districts`
+-- Constraints for table `districts`
 --
 ALTER TABLE `districts`
   ADD CONSTRAINT `districts_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`),
   ADD CONSTRAINT `districts_province_code_fkey` FOREIGN KEY (`province_code`) REFERENCES `provinces` (`code`);
 
 --
--- Các ràng buộc cho bảng `permission_user_catalogue`
+-- Constraints for table `permission_user_catalogue`
 --
 ALTER TABLE `permission_user_catalogue`
   ADD CONSTRAINT `permission_user_catalogue_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `permission_user_catalogue_user_catalogue_id_foreign` FOREIGN KEY (`user_catalogue_id`) REFERENCES `user_catalogues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `provinces`
+-- Constraints for table `provinces`
 --
 ALTER TABLE `provinces`
   ADD CONSTRAINT `provinces_administrative_region_id_fkey` FOREIGN KEY (`administrative_region_id`) REFERENCES `administrative_regions` (`id`),
   ADD CONSTRAINT `provinces_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`);
 
 --
--- Các ràng buộc cho bảng `questions`
+-- Constraints for table `questions`
 --
 ALTER TABLE `questions`
   ADD CONSTRAINT `questions_topic_id_foreign` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_user_catalogue_id_foreign` FOREIGN KEY (`user_catalogue_id`) REFERENCES `user_catalogues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `wards`
+-- Constraints for table `wards`
 --
 ALTER TABLE `wards`
   ADD CONSTRAINT `wards_administrative_unit_id_fkey` FOREIGN KEY (`administrative_unit_id`) REFERENCES `administrative_units` (`id`),
