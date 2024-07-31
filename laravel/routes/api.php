@@ -74,6 +74,7 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('topics', TopicController::class);
 
         // QUESTION ROUTE
+        Route::post('questions/importQuestion', [QuestionController::class, 'importQuestion']);
         Route::apiResource('questions', QuestionController::class);
 
         // Upload ROUTE

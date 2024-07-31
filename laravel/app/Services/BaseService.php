@@ -76,6 +76,7 @@ class BaseService implements BaseServiceInterface
             DB::commit();
             return $result;
         } catch (\Exception $e) {
+            dd($e->getMessage() . $e->getLine() . $e->getFile());
             DB::rollBack();
             return errorResponse($messageError);
         }

@@ -10,4 +10,5 @@ interface QuestionServiceInterface
     public function destroy($id);
     public function updateStatus();
     public function updateStatusMultiple();
+    public function uploadQuestionWithFile();
 }

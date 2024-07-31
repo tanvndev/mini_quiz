@@ -2,10 +2,11 @@
 // Trong Laravel, Service Pattern thường được sử dụng để tạo các lớp service, giúp tách biệt logic của ứng dụng khỏi controller.
 namespace App\Services\Question;
 
+use App\Imports\QuestionImport;
 use App\Repositories\Interfaces\Question\QuestionRepositoryInterface;
 use App\Services\BaseService;
 use App\Services\Interfaces\Question\QuestionServiceInterface;
-use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionService extends BaseService implements QuestionServiceInterface
 {
@@ -90,6 +91,15 @@ class QuestionService extends BaseService implements QuestionServiceInterface
     {
         return $this->executeInTransaction(function () use ($id) {
             $this->questionRepository->delete($id);
+            return successResponse('Xóa thành công.');
+        }, 'Xóa thất bại.');
+    }
+
+    public function uploadQuestionWithFile()
+    {
+        return $this->executeInTransaction(function () {
+            $file = request()->file('file');
+            Excel::import(new QuestionImport, $file);
             return successResponse('Xóa thành công.');
         }, 'Xóa thất bại.');
     }

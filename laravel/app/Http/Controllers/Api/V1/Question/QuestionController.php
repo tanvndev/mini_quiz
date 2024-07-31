@@ -8,6 +8,7 @@ use App\Http\Requests\Question\{StoreQuestionRequest, UpdateQuestionRequest};
 use App\Http\Resources\Question\QuestionResource;
 use App\Repositories\Interfaces\Question\QuestionRepositoryInterface;
 use App\Services\Interfaces\Question\QuestionServiceInterface;
+use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
@@ -55,5 +56,14 @@ class QuestionController extends Controller
     public function destroy(string $id)
     {
         return handleResponse($this->questionService->destroy($id));
+    }
+
+    public function importQuestion(Request $request)
+    {
+        // $request->validate([
+        //     'file' => 'required|mimes:xlsx,xlsx',
+        // ]);
+
+        return handleResponse($this->questionService->uploadQuestionWithFile());
     }
 }
