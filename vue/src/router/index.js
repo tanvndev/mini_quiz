@@ -5,7 +5,7 @@ import DashboardView from '@/views/backend/DashboardView.vue';
 import { FileManager } from '@/components/backend';
 import { isLoggedIn } from '@/middlewares/authenticate';
 
-import { authRoutes, userRoutes, topicRoutes, questionRoutes } from '@/router/backend';
+import { authRoutes, userRoutes, topicRoutes, questionRoutes, quizzRoutes } from '@/router/backend';
 
 const routes = [
   {
@@ -32,7 +32,8 @@ const routes = [
   ...userRoutes,
   ...authRoutes,
   ...topicRoutes,
-  ...questionRoutes
+  ...questionRoutes,
+  ...quizzRoutes
 ];
 
 const router = createRouter({

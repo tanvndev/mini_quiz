@@ -39,6 +39,13 @@ const sidebar = [
     name: 'Ngân hàng câu hỏi',
     route: 'question.index',
     subMenu: []
+  },
+  {
+    id: 'quizz_sidebar',
+    icon: 'fas fa-question-circle',
+    name: 'Bài kiểm tra',
+    route: 'quizz.index',
+    subMenu: []
   }
 ];
 export default sidebar;
