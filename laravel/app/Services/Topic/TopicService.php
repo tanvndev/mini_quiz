@@ -17,33 +17,17 @@ class TopicService extends BaseService implements TopicServiceInterface
     }
     public function paginate()
     {
-        // addslashes là một hàm được sử dụng để thêm các ký tự backslashes (\) vào trước các ký tự đặc biệt trong chuỗi.
-        $condition['search'] = addslashes(request('search'));
-        $condition['publish'] = request('publish');
         $select = ['id', 'name', 'publish', 'description', 'canonical'];
-
-        if (request('pageSize') && request('page')) {
-
-            $topics = $this->topicRepository->pagination(
-                $select,
-                $condition,
-                request('pageSize'),
-                ['id' => 'desc'],
-            );
-
-            foreach ($topics as $key => $topicCatalogue) {
-                $topicCatalogue->key = $topicCatalogue->id;
-            }
-        } else {
-            $topics = $this->topicRepository->all($select);
-        }
-
-
-        return [
-            'status' => 'success',
-            'messages' => '',
-            'data' => $topics
+        $condition = [
+            'search' => request('search'),
+            'publish' => request('publish'),
         ];
+
+        $data = request('pageSize') && request('page')
+            ? $this->topicRepository->pagination($select, $condition, request('pageSize'))
+            : $this->topicRepository->all($select);
+
+        return $data;
     }
 
     public function create()

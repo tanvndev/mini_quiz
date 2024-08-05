@@ -33,8 +33,6 @@
                       label="Mô tả bài kiểm tra"
                       placeholder="Mô tả bài kiểm tra"
                       type-input="textarea"
-                      :required="true"
-                      :options="state.topics"
                     />
                   </a-col>
                 </a-row>
@@ -96,7 +94,8 @@ const id = computed(() => router.currentRoute.value.params.id || null);
 
 const { handleSubmit, setValues, setFieldValue } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required('Chủ đề không được để trống.')
+    title: yup.string().required('Chủ đề không được để trống.'),
+    topic_id: yup.string().required('Chọn chủ đề câu hỏi.')
   })
 });
 
@@ -128,7 +127,7 @@ const getTopics = async () => {
 };
 
 const handleQuestions = (questionIds) => {
-  setFieldValue('question_ids', questionIds);
+  setFieldValue('question_ids[]', questionIds);
 };
 
 onMounted(async () => {

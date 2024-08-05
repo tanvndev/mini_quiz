@@ -57,16 +57,17 @@ if (!function_exists('formatToCommas')) {
         return $str;
     }
 }
-if (!function_exists('convertPrice')) {
 
-    function convertPrice($priceString)
+if (!function_exists('getError')) {
+    function getError($e)
     {
-        $priceWithoutDots = str_replace('.', '', $priceString);
-        // Chuyển đổi chuỗi thành số nguyên
-        $price = intval($priceWithoutDots);
-        return $price;
+        echo "Error: " . $e->getMessage() . "<br>";
+        echo "Line: " . $e->getLine() . "<br>";
+        echo "File: " . $e->getFile() . "<br>";
+        die();
     }
 }
+
 if (!function_exists('formatCurrency')) {
 
     function formatCurrency($amount, $currencyCode = 'vn')

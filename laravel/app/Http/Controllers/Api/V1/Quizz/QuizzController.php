@@ -38,7 +38,7 @@ class QuizzController extends Controller
      */
     public function store(StoreQuizzRequest $request)
     {
-        dd($this->quizzService->create());
+        // return response()->json($request->all());
         return handleResponse($this->quizzService->create(), ResponseEnum::CREATED);
     }
 

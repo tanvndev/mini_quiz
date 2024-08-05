@@ -8,6 +8,7 @@ use App\Http\Requests\Topic\{
     StoreTopicRequest,
     UpdateTopicRequest
 };
+use App\Http\Resources\Topic\TopicCollection;
 use App\Http\Resources\Topic\TopicResource;
 use App\Repositories\Interfaces\Topic\TopicRepositoryInterface;
 use App\Services\Interfaces\Topic\TopicServiceInterface;
@@ -28,9 +29,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $response = $this->topicService->paginate();
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        $paginator = $this->topicService->paginate();
+        $data = new TopicCollection($paginator);
+        return successResponse('', $data);
     }
 
     /**
@@ -39,8 +40,7 @@ class TopicController extends Controller
     public function store(StoreTopicRequest $request)
     {
         $response = $this->topicService->create();
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::CREATED : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        return handleResponse($response, ResponseEnum::CREATED);
     }
 
     /**
@@ -62,8 +62,7 @@ class TopicController extends Controller
     public function update(UpdateTopicRequest $request, string $id)
     {
         $response = $this->topicService->update($id);
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        return handleResponse($response);
     }
 
 
@@ -73,7 +72,6 @@ class TopicController extends Controller
     public function destroy(string $id)
     {
         $response = $this->topicService->destroy($id);
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        return handleResponse($response);
     }
 }

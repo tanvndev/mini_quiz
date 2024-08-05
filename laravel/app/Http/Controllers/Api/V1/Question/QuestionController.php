@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Question;
 use App\Enums\ResponseEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Question\{StoreQuestionRequest, UpdateQuestionRequest};
+use App\Http\Resources\Question\QuestionCollection;
 use App\Http\Resources\Question\QuestionResource;
 use App\Repositories\Interfaces\Question\QuestionRepositoryInterface;
 use App\Services\Interfaces\Question\QuestionServiceInterface;
@@ -25,7 +26,9 @@ class QuestionController extends Controller
 
     public function index()
     {
-        return handleResponse($this->questionService->paginate());
+        $paginator = $this->questionService->paginate();
+        $data = new QuestionCollection($paginator);
+        return successResponse('', $data);
     }
 
     public function store(StoreQuestionRequest $request)
@@ -57,10 +60,6 @@ class QuestionController extends Controller
 
     public function importQuestion(Request $request)
     {
-        // $request->validate([
-        //     'file' => 'required|mimes:xlsx,xlsx',
-        // ]);
-
         return handleResponse($this->questionService->uploadQuestionWithFile());
     }
 }

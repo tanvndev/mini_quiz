@@ -41,9 +41,6 @@
               <template v-if="column.dataIndex === 'type'">
                 {{ typeText(record.type) }}
               </template>
-              <template v-if="column.dataIndex === 'topic_name'">
-                {{ record.topic.name }}
-              </template>
 
               <template v-if="column.dataIndex === 'action'">
                 <ActionComponent
@@ -116,9 +113,9 @@ const columns = [
   {
     title: 'Chủ đề',
     dataIndex: 'topic_name',
-    key: 'topic_name'
+    key: 'topic_name',
+    sorter: (a, b) => a.topic_name.localeCompare(b.topic_name)
   },
-
   {
     title: 'Thực thi',
     dataIndex: 'action',

@@ -27,16 +27,11 @@ class QuestionService extends BaseService implements QuestionServiceInterface
         $select = ['id', 'content', 'type', 'topic_id'];
         $orderBy = ['id' => 'desc'];
 
-        $questions = request('pageSize') && request('page')
+        $data = request('pageSize') && request('page')
             ? $this->questionRepository->pagination($select, $condition, request('pageSize'), $orderBy, [], ['topic', 'answers'])
             : $this->questionRepository->all($select);
 
-        $questions->transform(function ($question) {
-            $question->key = $question->id;
-            return $question;
-        });
-
-        return successResponse('', $questions);
+        return $data;
     }
 
     public function create()

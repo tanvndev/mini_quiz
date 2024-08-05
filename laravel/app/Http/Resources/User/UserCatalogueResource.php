@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Permission\PermissionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,12 +17,13 @@ class UserCatalogueResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'key' => $this->key,
+            'key' => $this->id,
             'code' => $this->code,
             'name' => $this->name,
             'description' => $this->description,
             'publish' => $this->publish,
-            'users_count' => $this->users_count
+            'users_count' => $this->users_count,
+            'permissions' => PermissionResource::collection($this->permissions),
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\User\{
     StoreUserRequest,
     UpdateUserRequest
 };
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Repositories\Interfaces\User\UserRepositoryInterface;
 use App\Services\Interfaces\User\UserServiceInterface;
@@ -28,10 +29,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('modules', 'users.index');
-        $response = $this->userService->paginate();
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        // $this->authorize('modules', 'users.index');
+
+        $paginator = $this->userService->paginate();
+        $data = new UserCollection($paginator);
+        return successResponse('', $data);
     }
 
     /**
@@ -39,10 +41,10 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $this->authorize('modules', 'users.store');
+        // $this->authorize('modules', 'users.store');
+
         $response = $this->userService->create();
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::CREATED : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        return handleResponse($response, ResponseEnum::CREATED);
     }
 
     /**
@@ -50,13 +52,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $this->authorize('modules', 'users.show');
-        $user = new UserResource($this->userRepository->findById($id));
-        return response()->json([
-            'status' => 'success',
-            'messages' => '',
-            'data' => $user ?? []
-        ], ResponseEnum::OK);
+        // $this->authorize('modules', 'users.show');
+
+        $response = new UserResource($this->userRepository->findById($id));
+        return successResponse('', $response);
     }
 
 
@@ -65,10 +64,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string $id)
     {
-        $this->authorize('modules', 'users.update');
+        // $this->authorize('modules', 'users.update');
+
         $response = $this->userService->update($id);
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        return handleResponse($response);
     }
 
     /**
@@ -76,9 +75,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->authorize('modules', 'users.destroy');
+        // $this->authorize('modules', 'users.destroy');
+
         $response = $this->userService->destroy($id);
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        return handleResponse($response);
     }
 }

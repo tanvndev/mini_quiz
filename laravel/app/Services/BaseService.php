@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Services\Interfaces\BaseServiceInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+
 
 /**
  * Class BaseService
@@ -16,7 +18,7 @@ class BaseService implements BaseServiceInterface
     {
     }
 
-    protected function convertToCode($str)
+    protected function convertToCode(string $str): string
     {
         $newStr = Str::slug($str);
         $newStr = strtoupper(str_replace('-', '', $newStr));
@@ -25,18 +27,9 @@ class BaseService implements BaseServiceInterface
     }
 
 
-    protected function formatJson($payload, $inputName)
-    {
-        // Lấy ra payload từ form
-        if (isset($payload[$inputName]) && !empty($payload[$inputName])) {
-            $payload[$inputName] = json_encode($payload[$inputName]);
-        }
-        return $payload;
-    }
-
     public function updateStatus()
     {
-        $this->executeInTransaction(function () {
+        return $this->executeInTransaction(function () {
             $repositoryName = lcfirst(request('modelName')) . 'Repository';
 
             $payload[request('field')] = request('value');
@@ -48,7 +41,7 @@ class BaseService implements BaseServiceInterface
 
     public function updateStatusMultiple()
     {
-        $this->executeInTransaction(function () {
+        return $this->executeInTransaction(function () {
             $repositoryName = lcfirst(request('modelName')) . 'Repository';
 
             $payload[request('field')] = request('value');
@@ -60,7 +53,7 @@ class BaseService implements BaseServiceInterface
 
     public function deleteMultiple()
     {
-        $this->executeInTransaction(function () {
+        return $this->executeInTransaction(function () {
             $repositoryName = lcfirst(request('modelName')) . 'Repository';
             $this->{$repositoryName}->deleteByWhereIn('id', request('modelIds'));
 
@@ -76,7 +69,14 @@ class BaseService implements BaseServiceInterface
             DB::commit();
             return $result;
         } catch (\Exception $e) {
-            dd($e->getMessage() . $e->getLine() . $e->getFile());
+            getError($e);
+
+            Log::error('>>Transaction failed<<', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
             DB::rollBack();
             return errorResponse($messageError);
         }
