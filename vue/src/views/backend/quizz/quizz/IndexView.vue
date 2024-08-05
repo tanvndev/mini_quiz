@@ -77,7 +77,7 @@ const state = reactive({
   modelName: 'Quizz',
   routeCreate: 'quizz.store',
   routeUpdate: 'quizz.update',
-  endpoint: 'quizzs',
+  endpoint: 'quizzes',
   isShowToolbox: false,
   modelIds: [],
   filterOptions: {},
@@ -87,9 +87,9 @@ const state = reactive({
 const columns = [
   {
     title: 'Tên bài kiểm tra',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name)
+    dataIndex: 'title',
+    key: 'title',
+    sorter: (a, b) => a.title.localeCompare(b.title)
   },
   {
     title: 'Đường dẫn',

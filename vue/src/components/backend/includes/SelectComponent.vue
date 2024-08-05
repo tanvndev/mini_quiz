@@ -16,6 +16,7 @@
       :placeholder="props.placeholder"
       :class="props.className"
       :mode="props.mode"
+      :status="errorMessage ? 'error' : ''"
       @change="handleChange"
     >
     </a-select>

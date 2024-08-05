@@ -23,6 +23,11 @@ class Topic extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function quizzes()
+    {
+        return $this->hasMany(Quizz::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

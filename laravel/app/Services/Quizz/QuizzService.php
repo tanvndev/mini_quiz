@@ -17,32 +17,24 @@ class QuizzService extends BaseService implements QuizzServiceInterface
     }
     public function paginate()
     {
-        // addslashes là một hàm được sử dụng để thêm các ký tự backslashes (\) vào trước các ký tự đặc biệt trong chuỗi.
-        $condition['search'] = addslashes(request('search'));
-        $condition['publish'] = request('publish');
-        $select = ['id', 'name', 'publish', 'description', 'canonical'];
-
-        if (request('pageSize') && request('page')) {
-
-            $quizzs = $this->quizzRepository->pagination(
-                $select,
-                $condition,
-                request('pageSize'),
-                ['id' => 'desc'],
-            );
-
-            foreach ($quizzs as $key => $quizzCatalogue) {
-                $quizzCatalogue->key = $quizzCatalogue->id;
-            }
-        } else {
-            $quizzs = $this->quizzRepository->all($select);
-        }
-
-        return [
-            'status' => 'success',
-            'messages' => '',
-            'data' => $quizzs
+        $condition = [
+            'search' => addslashes(request('search')),
+            'publish' => request('publish'),
         ];
+        $select = ['id', 'title', 'description', 'image', 'canonical', 'publish', 'topic_id'];
+        $relation = [
+            [
+                'questions' => function ($query) {
+                    $query->with('answers', fn ($query) => $query->select(['id', 'content', 'question_id']));
+                }
+            ], 'topic'
+        ];
+
+        $data = request('pageSize') && request('page')
+            ? $this->quizzRepository->pagination($select, $condition, request('pageSize'), [], [], $relation)
+            : $this->quizzRepository->all($select, $relation);
+
+        return $data;
     }
 
     public function create()

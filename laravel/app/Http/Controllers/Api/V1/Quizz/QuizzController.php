@@ -8,6 +8,7 @@ use App\Http\Requests\Quizz\{
     StoreQuizzRequest,
     UpdateQuizzRequest
 };
+use App\Http\Resources\Quizz\QuizzCollection;
 use App\Http\Resources\Quizz\QuizzResource;
 use App\Repositories\Interfaces\Quizz\QuizzRepositoryInterface;
 use App\Services\Interfaces\Quizz\QuizzServiceInterface;
@@ -28,9 +29,9 @@ class QuizzController extends Controller
      */
     public function index()
     {
-        $response = $this->quizzService->paginate();
-        $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
-        return response()->json($response, $statusCode);
+        $paginator = $this->quizzService->paginate();
+        $data = new QuizzCollection($paginator);
+        return successResponse('', $data);
     }
 
     /**

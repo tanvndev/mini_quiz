@@ -38,7 +38,7 @@
                 </a-row>
               </a-card>
 
-              <a-card class="mt-3" title="Các câu hỏi kiểm tra">
+              <a-card class="mt-3" title="Các câu hỏi kiểm tra" v-if="!id">
                 <QuestionView @on-change-question="handleQuestions" />
               </a-card>
             </a-col>
@@ -109,15 +109,17 @@ const onSubmit = handleSubmit(async (values) => {
   }
   store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
   state.error = {};
-  router.push({ name: 'topic.index' });
+  router.push({ name: 'quizz.index' });
 });
 
 const fetchOne = async () => {
   await getOne(state.endpoint, id.value);
   setValues({
-    name: data.value?.name,
+    title: data.value?.title,
     description: data.value?.description,
-    canonical: data.value?.canonical
+    canonical: data.value?.canonical,
+    topic_id: data.value?.topic_id,
+    image: data.value?.image
   });
 };
 

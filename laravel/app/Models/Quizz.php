@@ -21,6 +21,16 @@ class Quizz extends Model
         'publish',
     ];
 
+    public function questions()
+    {
+        return $this->belongsToMany(Question::class);
+    }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -48,10 +58,5 @@ class Quizz extends Model
         }
 
         return $canonical;
-    }
-
-    public function questions()
-    {
-        return $this->belongsToMany(Question::class);
     }
 }
