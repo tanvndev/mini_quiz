@@ -10,7 +10,8 @@ import { authRoutes, userRoutes, topicRoutes, questionRoutes, quizzRoutes } from
 const routes = [
   {
     path: '/',
-    redirect: '/dashboard'
+    name: 'home',
+    component: () => import('@/views/backend/HomeView.vue')
   },
   {
     path: '/:pathMatch(.*)*',

@@ -75,6 +75,7 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('topics', TopicController::class);
 
         // QUIZZ ROUTE
+        Route::get('quizzes/do/{canonical}', [QuizzController::class, 'do']);
         Route::apiResource('quizzes', QuizzController::class);
 
         // QUESTION ROUTE

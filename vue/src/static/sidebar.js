@@ -1,9 +1,16 @@
 const sidebar = [
+  // {
+  //   id: 'dashboard_sidebar',
+  //   icon: 'fas fa-home-lg-alt',
+  //   name: 'Dashboard',
+  //   route: 'dashboard',
+  //   subMenu: []
+  // },
   {
-    id: 'dashboard_sidebar',
+    id: 'home_sidebar',
     icon: 'fas fa-home-lg-alt',
-    name: 'Dashboard',
-    route: 'dashboard',
+    name: 'Trang chủ',
+    route: 'home',
     subMenu: []
   },
   {

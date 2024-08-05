@@ -48,8 +48,22 @@ class QuizzController extends Controller
      */
     public function show(string $id)
     {
-        $question = new QuizzResource($this->quizzRepository->findById($id));
-        return successResponse('', $question);
+        $response = new QuizzResource($this->quizzRepository->findById($id));
+        return successResponse('', $response);
+    }
+
+    public function do(string $canonical)
+    {
+        $relation = [
+            [
+                'questions' => function ($query) {
+                    $query->with('answers', fn ($query) => $query->select(['id', 'content', 'question_id']));
+                }
+            ], 'topic'
+        ];
+
+        $response = new QuizzResource($this->quizzRepository->findByWhere(['canonical' => ['=', $canonical]], ['*'], $relation));
+        return successResponse('', $response);
     }
 
     /**

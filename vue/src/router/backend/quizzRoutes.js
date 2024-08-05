@@ -21,6 +21,12 @@ const quizzRoutes = [
     name: 'quizz.update',
     component: QuizzStoreView,
     beforeEnter: [isLoggedIn]
+  },
+  {
+    path: '/quizz/:canonical(\\w+)',
+    name: 'quizz.do',
+    component: () => import('@/views/backend/quizz/quizz/DoView.vue'),
+    beforeEnter: [isLoggedIn]
   }
 ];
 
