@@ -38,7 +38,7 @@ geography_data = {
     ],
     'E': [None] * 20,
     'F': [None] * 20,
-    'Topic': ['Địa lý Việt Nam'] * 20,
+    'Topic': [1] * 20,
     'Type': [1] * 20,
     'correct': ["A", "B", "A", "A", "A", "A", "B", "B", "B", "A", "A", "A", "A", "B", "A", "A", "D", "A", "D", "B"]
 }
