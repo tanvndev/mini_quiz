@@ -48,75 +48,36 @@ class TopicService extends BaseService implements TopicServiceInterface
 
     public function create()
     {
-        DB::beginTransaction();
-        try {
-            // Lấy ra tất cả các trường và loại bỏ trường bên dưới
-            $payload = request()->except('_token');
+        return $this->executeInTransaction(function () {
 
+            $payload = request()->except('_token', '_method');
             $this->topicRepository->create($payload);
 
-            DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Thêm mới thành công.',
-                'data' => null
-            ];
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => $e->getMessage(),
-                'data' => null
-            ];
-        }
+            return successResponse('Tạo mới thành công.');
+        }, 'Tạo mới thất bại.');
     }
 
 
     public function update($id)
     {
-        DB::beginTransaction();
-        try {
-            // Lấy ra tất cả các trường và loại bỏ 2 trường bên dưới
-            $payload = request()->except('_token', '_method');
 
+        return $this->executeInTransaction(function () use ($id) {
+
+            $payload = request()->except('_token', '_method');
             $this->topicRepository->update($id, $payload);
 
-            DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Cập nhập thành công.',
-                'data' => null
-            ];
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => 'Cập nhập thất bại.',
-                'data' => null
-            ];
-        }
+            return successResponse('Tạo mới thành công.');
+        }, 'Tạo mới thất bại.');
     }
 
 
     public function destroy($id)
     {
-        DB::beginTransaction();
-        try {
+        return $this->executeInTransaction(function () use ($id) {
+
             $this->topicRepository->delete($id);
 
-            DB::commit();
-            return [
-                'status' => 'success',
-                'messages' => 'Xóa thành công.',
-                'data' => null
-            ];
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return [
-                'status' => 'error',
-                'messages' => 'Xóa thất bại.',
-                'data' => null
-            ];
-        }
+            return successResponse('Tạo mới thành công.');
+        }, 'Tạo mới thất bại.');
     }
 }

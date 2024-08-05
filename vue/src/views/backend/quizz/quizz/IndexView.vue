@@ -74,10 +74,10 @@ import { useCRUD, usePagination } from '@/composables';
 // STATE
 const state = reactive({
   pageTitle: 'Danh sách bài kiểm tra',
-  modelName: 'Topic',
-  routeCreate: 'topic.store',
-  routeUpdate: 'topic.update',
-  endpoint: 'topics',
+  modelName: 'Quizz',
+  routeCreate: 'quizz.store',
+  routeUpdate: 'quizz.update',
+  endpoint: 'quizzs',
   isShowToolbox: false,
   modelIds: [],
   filterOptions: {},

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Quizz;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserCatalogueResource extends JsonResource
+class QuizzResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,10 @@ class UserCatalogueResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'key' => $this->key,
-            'code' => $this->code,
+            'canonical' => $this->canonical,
             'name' => $this->name,
             'description' => $this->description,
-            'publish' => $this->publish,
-            'users_count' => $this->users_count
+            'publish' => $this->publish
         ];
     }
 }

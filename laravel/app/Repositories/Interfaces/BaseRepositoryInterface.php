@@ -8,7 +8,9 @@ interface BaseRepositoryInterface
     public function findById($modelId, $column = ['*'], $relation = []);
     public function findByWhere($conditions = [], $column = ['*'], $relation = [], $all = false, $orderBy = null, $whereInParams = [], $withCount = []);
     public function findByWhereHas($condition = [], $column = ['*'], $relation = [], $alias = '', $all = false);
+    public function findByWhereIn(array $value, string $field = 'id');
     public function create($payload = []);
+    public function firstOrCreate(array $condition, array $payload = []);
     public function createBatch($payload = []);
     public function createPivot($model, $payload = [], $relation = '');
     public function update($modelId, $payload = []);
@@ -16,7 +18,7 @@ interface BaseRepositoryInterface
     public function updateByWhereIn($whereInField = '', $whereIn = [], $payload = []);
     public function updateByWhere($condition = [], $payload = []);
     public function delete($modelId);
-    public function updateOrInsert($payload = [], $conditions = []);
+    public function updateOrCreate($payload = [], $conditions = []);
     public function deleteByWhere($conditions = []);
     public function deleteByWhereIn($whereInField = '', $whereIn = []);
     public function forceDelete($modelId);

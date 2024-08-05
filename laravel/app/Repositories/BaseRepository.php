@@ -5,8 +5,6 @@ namespace App\Repositories;
 
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use InvalidArgumentException;
 
 class BaseRepository implements BaseRepositoryInterface
 {
@@ -63,6 +61,11 @@ class BaseRepository implements BaseRepositoryInterface
         return $all ? $query->get() : $query->first();
     }
 
+    public function findByWhereIn(array $value, string $field = 'id')
+    {
+        return $this->model->whereIn($field, $value)->get();
+    }
+
 
 
     public function findByWhereHas($condition = [], $column = ['*'], $relation = [], $alias = '', $all = false)
@@ -109,6 +112,12 @@ class BaseRepository implements BaseRepositoryInterface
         return $create->fresh();
     }
 
+    public function firstOrCreate(array $condition, array $payload = [])
+    {
+        $create = $this->model->firstOrCreate($condition, $payload);
+        return $create;
+    }
+
     public function createBatch($payload = [])
     {
         return $this->model->insert($payload);
@@ -146,9 +155,9 @@ class BaseRepository implements BaseRepositoryInterface
         return  $query->customWhere($conditions)->update($payload);
     }
 
-    public function updateOrInsert($payload = [], $conditions = [])
+    public function updateOrCreate($payload = [], $conditions = [])
     {
-        $this->model->updateOrInsert($conditions, $payload);
+        $this->model->updateOrCreate($conditions, $payload);
     }
 
     public function delete($modelId)
@@ -168,6 +177,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
 
+    // Xoá cứng
     public function forceDelete($modelId)
     {
         $delete = $this->findById($modelId);

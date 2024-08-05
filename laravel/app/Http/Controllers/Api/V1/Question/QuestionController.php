@@ -30,10 +30,7 @@ class QuestionController extends Controller
 
     public function store(StoreQuestionRequest $request)
     {
-        return handleResponse(
-            $this->questionService->create(),
-            ResponseEnum::CREATED
-        );
+        return handleResponse($this->questionService->create(), ResponseEnum::CREATED);
     }
 
     public function show(string $id)

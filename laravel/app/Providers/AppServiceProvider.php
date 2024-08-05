@@ -31,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\Topic\TopicServiceInterface' => 'App\Services\Topic\TopicService',
         // Question
         'App\Services\Interfaces\Question\QuestionServiceInterface' => 'App\Services\Question\QuestionService',
+        // Quizz
+        'App\Services\Interfaces\Quizz\QuizzServiceInterface' => 'App\Services\Quizz\QuizzService',
 
     ];
     public function register(): void

@@ -33,7 +33,7 @@ const filterOptions = reactive({
   search: ''
 });
 const removeRouteHide = () => {
-  const routeHide = ['permission.index', 'question.index'];
+  const routeHide = ['permission.index', 'question.index', 'quizz.store'];
   if (routeHide.includes(route.name)) {
     return false;
   }

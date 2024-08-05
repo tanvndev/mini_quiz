@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\Upload\{UploadController};
 use App\Http\Controllers\Api\V1\Location\{LocationController};
 use App\Http\Controllers\Api\V1\Permission\PermissionController;
 use App\Http\Controllers\Api\V1\Question\QuestionController;
+use App\Http\Controllers\Api\V1\Quizz\QuizzController;
 use App\Http\Controllers\Api\V1\Topic\TopicController;
 use App\Http\Controllers\Api\V1\User\{UserCatalogueController, UserController};
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,9 @@ Route::prefix('v1')->group(function () {
 
         // TOPIC ROUTE
         Route::apiResource('topics', TopicController::class);
+
+        // QUIZZ ROUTE
+        Route::apiResource('quizzes', QuizzController::class);
 
         // QUESTION ROUTE
         Route::post('questions/importQuestion', [QuestionController::class, 'importQuestion']);
