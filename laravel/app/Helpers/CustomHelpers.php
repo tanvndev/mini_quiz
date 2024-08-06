@@ -283,3 +283,21 @@ if (!function_exists('handleResponse')) {
         return response()->json($response, $statusCode);
     }
 }
+
+if (!function_exists('convertMilliseconds')) {
+
+    function convertMilliseconds($milliseconds)
+    {
+        if (!is_numeric($milliseconds) || $milliseconds < 0) {
+            throw new InvalidArgumentException('Số mili giây phải là số dương.');
+        }
+
+        $seconds = $milliseconds / 1000;
+        $minutes = floor($seconds / 60);
+        $remainingSeconds = $seconds % 60;
+
+        $time = $minutes == 0 ? $remainingSeconds . ' giây ' : $minutes . ' phút ' . $remainingSeconds . ' giây ';
+
+        return $time;
+    }
+}

@@ -75,8 +75,13 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('topics', TopicController::class);
 
         // QUIZZ ROUTE
-        Route::get('quizzes/do/{canonical}', [QuizzController::class, 'do']);
         Route::apiResource('quizzes', QuizzController::class);
+        Route::get('quizzes/history/index', [QuizzController::class, 'history']);
+
+        Route::get('quizzes/do/{canonical}', [QuizzController::class, 'do']);
+        Route::post('quizzes/mark', [QuizzController::class, 'mark']);
+        Route::get('quizzes/history/user', [QuizzController::class, 'historyUser']);
+        Route::get('quizzes/history/detail/{id}', [QuizzController::class, 'historyDetail']);
 
         // QUESTION ROUTE
         Route::post('questions/importQuestion', [QuestionController::class, 'importQuestion']);

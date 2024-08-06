@@ -10,6 +10,8 @@ use App\Http\Requests\Quizz\{
 };
 use App\Http\Resources\Quizz\QuizzCollection;
 use App\Http\Resources\Quizz\QuizzResource;
+use App\Http\Resources\Quizz\ResultCollection;
+use App\Http\Resources\Quizz\ResultResource;
 use App\Repositories\Interfaces\Quizz\QuizzRepositoryInterface;
 use App\Services\Interfaces\Quizz\QuizzServiceInterface;
 
@@ -63,6 +65,31 @@ class QuizzController extends Controller
         ];
 
         $response = new QuizzResource($this->quizzRepository->findByWhere(['canonical' => ['=', $canonical]], ['*'], $relation));
+        return successResponse('', $response);
+    }
+
+    public function mark()
+    {
+        return handleResponse($this->quizzService->handleMark());
+    }
+
+    public function history()
+    {
+        $paginator = $this->quizzService->history();
+        $data = new ResultCollection($paginator);
+        return successResponse('', $data);
+    }
+
+    public function historyUser()
+    {
+        $paginator = $this->quizzService->historyUser();
+        $data = new ResultCollection($paginator);
+        return successResponse('', $data);
+    }
+
+    public function historyDetail(string $id)
+    {
+        $response = new ResultResource($this->quizzService->historyDetail($id));
         return successResponse('', $response);
     }
 

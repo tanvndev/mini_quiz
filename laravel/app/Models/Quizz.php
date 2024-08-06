@@ -31,6 +31,11 @@ class Quizz extends Model
         return $this->belongsTo(Topic::class);
     }
 
+    public function results()
+    {
+        return $this->hasMany(ResultAnswer::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

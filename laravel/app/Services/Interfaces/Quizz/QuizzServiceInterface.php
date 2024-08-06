@@ -10,4 +10,8 @@ interface QuizzServiceInterface
     public function destroy($id);
     public function updateStatus();
     public function updateStatusMultiple();
+    public function handleMark();
+    public function historyUser();
+    public function historyDetail(string $id);
+    public function history();
 }

@@ -29,6 +29,8 @@ class AppRepositoryProvider extends ServiceProvider
         'App\Repositories\Interfaces\Question\QuestionRepositoryInterface' => 'App\Repositories\Question\QuestionRepository',
         // Quizz
         'App\Repositories\Interfaces\Quizz\QuizzRepositoryInterface' => 'App\Repositories\Quizz\QuizzRepository',
+        // Result
+        'App\Repositories\Interfaces\Quizz\ResultRepositoryInterface' => 'App\Repositories\Quizz\ResultRepository',
 
     ];
 

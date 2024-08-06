@@ -27,6 +27,24 @@ const quizzRoutes = [
     name: 'quizz.do',
     component: () => import('@/views/backend/quizz/quizz/DoView.vue'),
     beforeEnter: [isLoggedIn]
+  },
+  {
+    path: '/quizz/history/:id(\\d+)',
+    name: 'quizz.history',
+    component: () => import('@/views/backend/quizz/history/HistoryDetailView.vue'),
+    beforeEnter: [isLoggedIn]
+  },
+  {
+    path: '/quizz/history/index',
+    name: 'quizz.history.index',
+    component: () => import('@/views/backend/quizz/history/IndexView.vue'),
+    beforeEnter: [isLoggedIn]
+  },
+  {
+    path: '/quizz/history/user',
+    name: 'quizz.history.user',
+    component: () => import('@/views/backend/quizz/history/HistoryListView.vue'),
+    beforeEnter: [isLoggedIn]
   }
 ];
 

@@ -53,6 +53,20 @@ const sidebar = [
     name: 'Bài kiểm tra',
     route: 'quizz.index',
     subMenu: []
+  },
+  {
+    id: 'history_user_sidebar',
+    icon: 'fas fa-history',
+    name: 'Bài làm của bạn',
+    route: 'quizz.history.user',
+    subMenu: []
+  },
+  {
+    id: 'history_sidebar',
+    icon: 'fas fa-history',
+    name: 'Lịch sử làm bài',
+    route: 'quizz.history.index',
+    subMenu: []
   }
 ];
 export default sidebar;

@@ -4,13 +4,13 @@
       <ul class="mb-0 flex flex-shrink-0 items-center justify-end space-x-10">
         <li class="relative inline-block text-left">
           <a-dropdown>
-            <button class="relative rounded-md align-middle focus:outline-none">
+            <!-- <button class="relative rounded-md align-middle focus:outline-none">
               <i class="fal fa-bell text-[22px] text-emerald-400"></i>
               <span
                 class="pulse absolute right-0 top-0 z-10 inline-flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-red-500 p-1 text-xs font-medium leading-none text-red-100"
                 >5</span
               >
-            </button>
+            </button> -->
             <template #overlay>
               <div class="w-[300px] rounded-lg bg-white shadow-lg md:w-[400px]">
                 <div class="px-5">

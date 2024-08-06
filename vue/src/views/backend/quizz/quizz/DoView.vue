@@ -6,7 +6,10 @@
         <i class="fas fa-home-lg-alt text-xl"></i>
       </RouterLink>
       <p class="mb-10 mt-5">Thí sinh đọc kỹ đề trước khi làm bài.</p>
-
+      <span class="mb-5 block text-right text-2xl font-bold text-primary-500">
+        <i class="fas fa-clock"></i>
+        {{ timeRemaining }}
+      </span>
       <a-row :gutter="[16, 16]">
         <a-col
           :span="24"
@@ -41,7 +44,14 @@
       </a-row>
 
       <div class="mt-5 text-center">
-        <button @click="submitAnswers" class="btn btn-primary">Nộp bài</button>
+        <a-popconfirm
+          title="Bạn có chắc chắn muốn nộp bài?"
+          ok-text="Nộp bài"
+          cancel-text="Hủy"
+          @confirm="submitAnswers"
+        >
+          <a-button>Nộp bài</a-button>
+        </a-popconfirm>
       </div>
     </a-card>
   </div>
@@ -52,13 +62,16 @@ import { computed, onMounted, reactive } from 'vue';
 import { useCRUD } from '@/composables';
 import router from '@/router';
 import { message } from 'ant-design-vue';
+import { formatMessages } from '@/utils/format';
+import store from '@/store';
 
 const state = reactive({
   quizz: {},
-  selectedAnswers: {}
+  selectedAnswers: {},
+  timeRemaining: 0
 });
 
-const { getOne, data } = useCRUD();
+const { getOne, create, data, messages } = useCRUD();
 const canonical = computed(() => router.currentRoute.value.params.canonical);
 
 const fetchOne = async () => {
@@ -70,7 +83,14 @@ const hasError = (questionId) => {
   return !state.selectedAnswers[questionId];
 };
 
-const submitAnswers = () => {
+const startTimer = () => {
+  state.timeRemaining = 0;
+  setInterval(() => {
+    state.timeRemaining += 1000;
+  }, 1000);
+};
+
+const submitAnswers = async () => {
   const unansweredQuestions = state.quizz.questions
     .filter((question) => !state.selectedAnswers[question.id])
     .map((question) => `Câu ${state.quizz.questions.indexOf(question) + 1}`);
@@ -81,11 +101,35 @@ const submitAnswers = () => {
     return false;
   }
 
-  console.log('Selected Answers:', state.selectedAnswers);
+  const formData = new FormData();
+  formData.append('duration', state.timeRemaining);
+  formData.append('quizz_id', state.quizz.id);
+  formData.append('answers', JSON.stringify(state.selectedAnswers));
+
+  const response = await create('quizzes/mark', formData);
+  console.log(response);
+
+  // if (!response) {
+  //   return (state.error = formatMessages(messages.value));
+  // }
+  // store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
+  // state.error = {};
+  // router.push({ name: 'quizz.index' });
 };
 
+const formatTime = (milliseconds) => {
+  const minutes = Math.floor(milliseconds / 60000);
+  const seconds = Math.floor((milliseconds % 60000) / 1000);
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+};
+
+const timeRemaining = computed(() => formatTime(state.timeRemaining));
+
 onMounted(() => {
-  fetchOne();
+  if (canonical.value) {
+    fetchOne();
+    startTimer();
+  }
 });
 </script>
 
