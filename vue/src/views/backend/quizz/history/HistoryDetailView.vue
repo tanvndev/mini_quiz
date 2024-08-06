@@ -2,9 +2,23 @@
   <div class="container mx-auto mt-5 rounded shadow-md">
     <a-card>
       <h1 class="mb-5 text-center text-3xl">{{ state.quizz.quizz_name }}</h1>
+
       <RouterLink :to="{ name: 'home' }" class="float-right">
         <i class="fas fa-home-lg-alt text-xl"></i>
       </RouterLink>
+      <div class="mb-10 text-xl font-normal">
+        <h2>
+          Điểm: <span class="font-bold text-green-500">{{ state.quizz.score }}</span>
+        </h2>
+        <h2>
+          Số câu đúng: <span class="font-bold text-green-500">{{ state.quizz.correct }}</span>
+        </h2>
+        <h2>
+          Thời gian lâm bài:
+          <span class="font-bold text-green-500">{{ state.quizz.duration }}</span>
+        </h2>
+      </div>
+
       <a-row :gutter="[16, 16]">
         <a-col
           :span="24"
