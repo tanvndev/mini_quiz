@@ -6,7 +6,7 @@
           <a-col span="4" v-for="quizz in state.quizzes" :key="quizz.id">
             <a-card hoverable>
               <template #cover>
-                <img :alt="quizz.title" :src="quizz.image" />
+                <img class="h-[150px]" :alt="quizz.title" :src="quizz.image" />
               </template>
               <a-card-meta>
                 <template #title>

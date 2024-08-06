@@ -1,52 +1,56 @@
 import pandas as pd
 
-# Create a new DataFrame for the geography questions
-geography_data = {
+# Dữ liệu câu hỏi hóa học với tất cả các danh sách có cùng độ dài
+chemistry_data = {
     'Question': [
-        "Đỉnh núi cao nhất ở Việt Nam là đỉnh nào?",
-        "Sông nào dài nhất Việt Nam?",
-        "Vịnh nào được UNESCO công nhận là Di sản thiên nhiên thế giới?",
-        "Biển Đông bao bọc Việt Nam ở phía nào?",
-        "Thủ đô của Việt Nam là thành phố nào?",
-        "Hồ nào lớn nhất ở Hà Nội?",
-        "Việt Nam nằm ở khu vực nào của châu Á?",
-        "Đồng bằng lớn nhất ở Việt Nam là đồng bằng nào?",
-        "Việt Nam có bao nhiêu tỉnh thành?",
-        "Núi Bà Đen thuộc tỉnh nào?",
-        "Đèo nào dài nhất Việt Nam?",
-        "Huyện đảo Trường Sa thuộc tỉnh nào?",
-        "Tỉnh nào có diện tích lớn nhất Việt Nam?",
-        "Thành phố nào lớn nhất Việt Nam?",
-        "Sông Hương chảy qua tỉnh nào?",
-        "Núi Bạch Mã thuộc tỉnh nào?",
-        "Quốc gia nào không có chung biên giới với Việt Nam?",
-        "Đảo Phú Quốc thuộc tỉnh nào?",
-        "Đèo Hải Vân nối liền hai tỉnh nào?",
-        "Sông Cửu Long chảy qua bao nhiêu tỉnh thành ở Việt Nam?"
+        "Chất nào là axit mạnh nhất trong các axit sau: HCl, H2SO4, HNO3, H2CO3?",
+        "Nguyên tố nào có số hiệu nguyên tử là 6?",
+        "Chất nào là dung môi phổ biến nhất trong hóa học?",
+        "Đơn vị đo khối lượng phân tử là gì?",
+        "Chất nào được biết đến là tác nhân oxi hóa mạnh?",
+        "Phản ứng nào giữa kim loại và acid tạo ra khí hidro?",
+        "Axit nào có mặt trong dạ dày người?",
+        "Nguyên tố nào có ký hiệu là O?",
+        "Chất nào được sử dụng trong việc làm tinh bột?",
+        "Nước có công thức hóa học là gì?",
+        "Khí nào được gọi là khí thở?",
+        "Chất nào dùng để làm sạch nước uống?",
+        "Hợp chất nào được tạo thành từ các nguyên tử oxy và hydro?",
+        "Chất nào được gọi là chất điện ly mạnh?",
+        "Hàm lượng oxi trong không khí chiếm bao nhiêu phần trăm?",
+        "Nguyên tố nào là thành phần chính của nước biển?",
+        "Axit nào được sử dụng trong việc sản xuất phân bón?",
+        "Kim loại nào được sử dụng nhiều trong ngành công nghiệp chế tạo máy móc?",
+        "Chất nào được dùng để làm thuốc nhuộm thực phẩm?"
     ],
     'A': [
-        "Đỉnh Phan Xi Păng", "Sông Mê Kông", "Vịnh Hạ Long", "Phía Đông", "Hà Nội", "Hồ Tây", "Đông Á", "Đồng bằng sông Hồng", "61", "Tây Ninh", "Đèo Hải Vân", "Khánh Hòa", "Nghệ An", "Hà Nội", "Thừa Thiên Huế", "Thừa Thiên Huế", "Trung Quốc", "Kiên Giang", "Thừa Thiên Huế và Quảng Nam", "10"
+        "H2SO4", "Carbon", "Nước", "Gram", "Oxy", "Kali", "HCl", "Oxy", "Tinh bột", "H2O", "CO2", "Clorua", "Natri", "Natri", "21%", "Sodium", "HNO3", "Sắt", "Axit tartric"
     ],
     'B': [
-        "Đỉnh Tây Côn Lĩnh", "Sông Hồng", "Vịnh Lan Hạ", "Phía Tây", "TP. Hồ Chí Minh", "Hồ Hoàn Kiếm", "Đông Nam Á", "Đồng bằng sông Cửu Long", "63", "Bình Dương", "Đèo Ngang", "Bình Thuận", "Gia Lai", "Đà Nẵng", "Quảng Bình", "Quảng Bình", "Lào", "An Giang", "Đà Nẵng và Quảng Ngãi", "12"
+        "HNO3", "Oxy", "Cồn", "Kilogram", "Clorua", "Magie", "H2SO4", "Kali", "Đường", "NaCl", "Oxy", "Khí ozon", "Barium", "Calci", "78%", "Clorua", "H2SO4", "Nhôm", "Axit sulfuric"
     ],
     'C': [
-        "Đỉnh Pu Si Lung", "Sông Đà", "Vịnh Xuân Đài", "Phía Nam", "Đà Nẵng", "Hồ Trúc Bạch", "Nam Á", "Đồng bằng Trung Bộ", "64", "Ninh Thuận", "Đèo Cả", "Ninh Thuận", "Đồng Nai", "Cần Thơ", "Đà Nẵng", "Quảng Ngãi", "Campuchia", "Cà Mau", "Quảng Ngãi và Bình Định", "13"
+        "HCl", "Nitơ", "Aceton", "Mole", "Natri", "Sắt", "H2CO3", "Hydro", "Axit", "NaOH", "Khí metan", "Natri clorua", "Sắt", "Đồng", "70%", "Magie", "HCl", "Bạc", "Axit acetic"
     ],
     'D': [
-        "Đỉnh Ngọc Linh", "Sông Đồng Nai", "Vịnh Cam Ranh", "Phía Bắc", "Huế", "Hồ Bảy Mẫu", "Tây Á", "Đồng bằng Bắc Bộ", "65", "Bình Phước", "Đèo Pha Đin", "Phú Yên", "Kon Tum", "Hải Phòng", "Hà Tĩnh", "Quảng Nam", "Thái Lan", "Bình Thuận", "Đà Nẵng và Thừa Thiên Huế", "14"
+        "H2CO3", "Hydro", "Amoniac", "MiliGram", "Amoniac", "Kẽm", "HNO3", "Cacbon", "Chất béo", "HCl", "Khí nitơ", "Natri bicacbonat", "Kẽm", "Kali", "90%", "Canxi", "Axit acetic", "Kẽm", "Axit citric"
     ],
-    'E': [None] * 20,
-    'F': [None] * 20,
-    'Topic': [1] * 20,
-    'Type': [1] * 20,
-    'correct': ["A", "B", "A", "A", "A", "A", "B", "B", "B", "A", "A", "A", "A", "B", "A", "A", "D", "A", "D", "B"]
+    'E': [None] * 19,
+    'F': [None] * 19,
+    'Topic': [3] * 19,
+    'Type': [1] * 19,
+    'correct': ["A", "A", "A", "D", "B", "A", "A", "A", "A", "A", "B", "B", "C", "D", "A", "B", "A", "B", "B"]
 }
 
-geography_df = pd.DataFrame(geography_data)
+# Kiểm tra độ dài của tất cả các danh sách
+lengths = {key: len(value) for key, value in chemistry_data.items()}
+print("Lengths of each list in the dictionary:", lengths)
 
-# Save the DataFrame to a new Excel file
-geography_output_file_path = 'question-bank-vietnam-geography.xlsx'
-geography_df.to_excel(geography_output_file_path, index=False)
+# Tạo DataFrame từ dữ liệu
+chemistry_df = pd.DataFrame(chemistry_data)
 
-print(f'File saved to {geography_output_file_path}')
+# Lưu DataFrame vào một tệp Excel mới
+chemistry_output_file_path = 'question-bank-vietnam-chemistry.xlsx'
+chemistry_df.to_excel(chemistry_output_file_path, index=False)
+
+print(f'File saved to {chemistry_output_file_path}')

@@ -12,7 +12,7 @@
 
       <ul>
         <li
-          v-for="item in sidebar"
+          v-for="item in filteredSidebar"
           :key="item.name"
           :class="{
             active: isActive(item),
@@ -92,12 +92,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import sidebar from '@/static/sidebar';
+import { useStore } from 'vuex';
 
 const openDropdowns = ref({});
 const route = useRoute();
+const store = useStore();
+const role = computed(() => store.getters['authStore/getRole']);
 
 const toggerDropdown = (itemId) => {
   openDropdowns.value[itemId] = !openDropdowns.value[itemId];
@@ -105,6 +108,10 @@ const toggerDropdown = (itemId) => {
 const isActive = (item) => {
   return route.name == item.route || item.subMenu.some((sub) => route.name === sub.route);
 };
+
+const filteredSidebar = computed(() => {
+  return sidebar.filter((item) => item.role.includes(role.value));
+});
 </script>
 
 <style scoped>
