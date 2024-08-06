@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $this->authorize('modules', 'users.index');
+        $this->authorize('modules', 'users.index');
 
         $paginator = $this->userService->paginate();
         $data = new UserCollection($paginator);
@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        // $this->authorize('modules', 'users.store');
+        $this->authorize('modules', 'users.store');
 
         $response = $this->userService->create();
         return handleResponse($response, ResponseEnum::CREATED);
@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        // $this->authorize('modules', 'users.show');
+        $this->authorize('modules', 'users.show');
 
         $response = new UserResource($this->userRepository->findById($id));
         return successResponse('', $response);
@@ -64,7 +64,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string $id)
     {
-        // $this->authorize('modules', 'users.update');
+        $this->authorize('modules', 'users.update');
 
         $response = $this->userService->update($id);
         return handleResponse($response);
@@ -75,7 +75,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        // $this->authorize('modules', 'users.destroy');
+        $this->authorize('modules', 'users.destroy');
 
         $response = $this->userService->destroy($id);
         return handleResponse($response);

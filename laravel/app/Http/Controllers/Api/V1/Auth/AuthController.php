@@ -31,7 +31,6 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        // Kiểm tra xác thực email
         $user = User::where('email', $credentials['email'])->first();
 
         if (!$user) {
@@ -42,7 +41,6 @@ class AuthController extends Controller
             return errorResponse('Vui lòng xác nhận email của bạn trước khi đăng nhập.');
         }
 
-        // Đăng nhập bằng JWTAuth
         if ($token = JWTAuth::attempt($credentials)) {
             return $this->respondWithToken($token, 'Đăng nhập thành công.');
         }

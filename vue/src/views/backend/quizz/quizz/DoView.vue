@@ -107,14 +107,13 @@ const submitAnswers = async () => {
   formData.append('answers', JSON.stringify(state.selectedAnswers));
 
   const response = await create('quizzes/mark', formData);
-  console.log(response);
 
-  // if (!response) {
-  //   return (state.error = formatMessages(messages.value));
-  // }
-  // store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
-  // state.error = {};
-  // router.push({ name: 'quizz.index' });
+  if (!response) {
+    return (state.error = formatMessages(messages.value));
+  }
+  store.dispatch('antStore/showMessage', { type: 'success', message: messages.value });
+  state.error = {};
+  router.push({ name: 'quizz.history', params: { id: data.value.id } });
 };
 
 const formatTime = (milliseconds) => {

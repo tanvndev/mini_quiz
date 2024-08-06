@@ -4,6 +4,7 @@ import store from '@/store';
 import DashboardView from '@/views/backend/DashboardView.vue';
 import { FileManager } from '@/components/backend';
 import { isLoggedIn } from '@/middlewares/authenticate';
+import { isAdmin } from '@/middlewares/authorization';
 
 import { authRoutes, userRoutes, topicRoutes, questionRoutes, quizzRoutes } from '@/router/backend';
 
@@ -22,13 +23,13 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardView,
-    beforeEnter: [isLoggedIn]
+    beforeEnter: [isLoggedIn, isAdmin]
   },
   {
     path: '/fileManager',
     name: 'fileManager',
     component: FileManager,
-    beforeEnter: [isLoggedIn]
+    beforeEnter: [isLoggedIn, isAdmin]
   },
   ...userRoutes,
   ...authRoutes,

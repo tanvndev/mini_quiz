@@ -29,7 +29,7 @@ class UserCatalogueController extends Controller
      */
     public function index()
     {
-        // $this->authorize('modules', 'users.catalogues.index');
+        $this->authorize('modules', 'users.catalogues.index');
 
         $paginator = $this->userCatalogueService->paginate();
         $data = new UserCatalogueCollection($paginator);
@@ -41,7 +41,7 @@ class UserCatalogueController extends Controller
      */
     public function store(StoreUserCatalogueRequest $request)
     {
-        // $this->authorize('modules', 'users.catalogues.store');
+        $this->authorize('modules', 'users.catalogues.store');
 
         $response = $this->userCatalogueService->create();
         return handleResponse($response, ResponseEnum::CREATED);
@@ -52,7 +52,7 @@ class UserCatalogueController extends Controller
      */
     public function show(string $id)
     {
-        // $this->authorize('modules', 'users.catalogues.show');
+        $this->authorize('modules', 'users.catalogues.show');
 
         $response = new UserCatalogueResource($this->userCatalogueRepository->findById($id));
         return successResponse('', $response);
@@ -64,7 +64,7 @@ class UserCatalogueController extends Controller
      */
     public function update(UpdateUserCatalogueRequest $request, string $id)
     {
-        // $this->authorize('modules', 'users.catalogues.update');
+        $this->authorize('modules', 'users.catalogues.update');
 
         $response = $this->userCatalogueService->update($id);
         return handleResponse($response);
@@ -76,7 +76,7 @@ class UserCatalogueController extends Controller
      */
     public function destroy(string $id)
     {
-        // $this->authorize('modules', 'users.catalogues.destroy');
+        $this->authorize('modules', 'users.catalogues.destroy');
 
         $response = $this->userCatalogueService->destroy($id);
         return handleResponse($response);
@@ -84,7 +84,7 @@ class UserCatalogueController extends Controller
 
     public function updatePermissions(string $id)
     {
-        // $this->authorize('modules', 'users.catalogues.updatePermissions');
+        $this->authorize('modules', 'users.catalogues.updatePermissions');
 
         $response = $this->userCatalogueService->updatePermissions();
         return handleResponse($response);

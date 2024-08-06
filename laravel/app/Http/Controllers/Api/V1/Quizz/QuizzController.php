@@ -31,6 +31,8 @@ class QuizzController extends Controller
      */
     public function index()
     {
+        // $this->authorize('modules', 'quizzes.index');
+
         $paginator = $this->quizzService->paginate();
         $data = new QuizzCollection($paginator);
         return successResponse('', $data);
@@ -41,6 +43,8 @@ class QuizzController extends Controller
      */
     public function store(StoreQuizzRequest $request)
     {
+        $this->authorize('modules', 'quizzes.store');
+
         // return response()->json($request->all());
         return handleResponse($this->quizzService->create(), ResponseEnum::CREATED);
     }
@@ -50,6 +54,8 @@ class QuizzController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('modules', 'quizzes.show');
+
         $response = new QuizzResource($this->quizzRepository->findById($id));
         return successResponse('', $response);
     }
@@ -75,6 +81,8 @@ class QuizzController extends Controller
 
     public function history()
     {
+        $this->authorize('modules', 'quizzes.history.index');
+
         $paginator = $this->quizzService->history();
         $data = new ResultCollection($paginator);
         return successResponse('', $data);
@@ -98,6 +106,8 @@ class QuizzController extends Controller
      */
     public function update(UpdateQuizzRequest $request, string $id)
     {
+        $this->authorize('modules', 'quizzes.update');
+
         return handleResponse($this->quizzService->update($id));
     }
 
@@ -107,6 +117,8 @@ class QuizzController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('modules', 'quizzes.destroy');
+
         return handleResponse($this->quizzService->destroy($id));
     }
 }

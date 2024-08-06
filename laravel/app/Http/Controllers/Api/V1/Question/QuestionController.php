@@ -26,6 +26,8 @@ class QuestionController extends Controller
 
     public function index()
     {
+        $this->authorize('modules', 'questions.index');
+
         $paginator = $this->questionService->paginate();
         $data = new QuestionCollection($paginator);
         return successResponse('', $data);
@@ -33,11 +35,15 @@ class QuestionController extends Controller
 
     public function store(StoreQuestionRequest $request)
     {
+        $this->authorize('modules', 'questions.store');
+
         return handleResponse($this->questionService->create(), ResponseEnum::CREATED);
     }
 
     public function show(string $id)
     {
+        $this->authorize('modules', 'questions.show');
+
         $question = new QuestionResource(
             $this->questionRepository->findById(
                 $id,
@@ -50,16 +56,22 @@ class QuestionController extends Controller
 
     public function update(UpdateQuestionRequest $request, string $id)
     {
+        $this->authorize('modules', 'questions.update');
+
         return handleResponse($this->questionService->update($id));
     }
 
     public function destroy(string $id)
     {
+        $this->authorize('modules', 'questions.destroy');
+
         return handleResponse($this->questionService->destroy($id));
     }
 
     public function importQuestion(Request $request)
     {
+        $this->authorize('modules', 'questions.importQuestion');
+
         return handleResponse($this->questionService->uploadQuestionWithFile());
     }
 }

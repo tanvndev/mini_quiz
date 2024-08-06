@@ -38,7 +38,7 @@ instance.interceptors.response.use(
 
     // Xu ly thong bao quyen truy cap
     if (error.response.status === 403) {
-      store.dispatch('antStore/showMessage', {
+      return store.dispatch('antStore/showMessage', {
         type: 'error',
         message: 'Bạn không có quyền thực hiện thao tác.'
       });

@@ -29,6 +29,8 @@ class TopicController extends Controller
      */
     public function index()
     {
+        $this->authorize('modules', 'topics.index');
+
         $paginator = $this->topicService->paginate();
         $data = new TopicCollection($paginator);
         return successResponse('', $data);
@@ -39,6 +41,8 @@ class TopicController extends Controller
      */
     public function store(StoreTopicRequest $request)
     {
+        $this->authorize('modules', 'topics.store');
+
         $response = $this->topicService->create();
         return handleResponse($response, ResponseEnum::CREATED);
     }
@@ -48,6 +52,8 @@ class TopicController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('modules', 'topics.show');
+
         $topic = new TopicResource($this->topicRepository->findById($id));
         return response()->json([
             'status' => 'success',
@@ -61,6 +67,8 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, string $id)
     {
+        $this->authorize('modules', 'topics.update');
+
         $response = $this->topicService->update($id);
         return handleResponse($response);
     }
@@ -71,6 +79,8 @@ class TopicController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('modules', 'topics.destroy');
+
         $response = $this->topicService->destroy($id);
         return handleResponse($response);
     }
