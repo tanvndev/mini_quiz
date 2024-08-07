@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
                 'response' => new LaravelResponseFactory(app('request')),
                 'source' => $fileSystem->getDriver(),
                 'cache' =>  $fileSystem->getDriver(),
-                'source_path_prefix' => env('IMAGE_SOURCE_PATH'),
+                'source_path_prefix' => env('IMAGE_SOURCE_PATH', 'public/uploads/photos/'),
                 'cache_path_prefix' => '.cache',
             ]);
         });

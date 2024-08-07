@@ -42,7 +42,6 @@ const { handleSubmit, setValues } = useForm({
       .test('fileRequired', 'Vui lòng chọn tệp tin.', (value) => value)
       .test('fileType', 'Vui lòng chọn đúng định dạng tệp tin là excel.', (value) => {
         if (!value) return true; // allow empty value
-        console.log(value);
         return (
           value &&
           [

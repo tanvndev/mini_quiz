@@ -13,15 +13,14 @@ class Upload
 {
     public static function uploadImage($image)
     {
-        // dd($image);
-        $imageSrc = env('IMAGE_SOURCE_PATH');
+        $imageSrc = env('IMAGE_SOURCE_PATH', 'public/uploads/photos/');
+        // dd($imageSrc);
         $fileList = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif', 'tiff', 'heic', 'raw'];
         try {
             $extension = strtolower($image->getClientOriginalExtension());
             $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $extension;
             if ($image != null && in_array($extension, $fileList)) {
 
-                // Kiểm tra kích thước của ảnh
                 if ($image->getSize() > 5000000) {
                     return [
                         'status' => 'error',
@@ -33,6 +32,7 @@ class Upload
                 $uuid = uniqid();
                 $path = $imageSrc . date('Y') . '/' . date('m');
                 $filename = Str::slug($originalName) . '_' . $uuid . '.webp'; // Change the extension to .webp
+                // dd($imageSrc);   
 
                 // Create the directory if it doesn't exist
                 if (!Storage::exists($path)) {
@@ -48,7 +48,6 @@ class Upload
                 $temporaryDirectory = storage_path('app/temp/');
 
                 if (!File::exists($temporaryDirectory)) {
-                    // Nếu chưa tồn tại, tạo thư mục
                     File::makeDirectory($temporaryDirectory, $mode = 0755, true, true);
                 }
 
