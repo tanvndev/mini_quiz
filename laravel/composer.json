@@ -12,12 +12,14 @@
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^10.10",
+        "laravel/octane": "^2.5",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "league/glide": "^2.3",
         "league/glide-laravel": "^1.0",
         "maatwebsite/excel": "^3.1",
         "spatie/image-optimizer": "^1.7",
+        "swoole/ide-helper": "^5.1",
         "tymon/jwt-auth": "^2.1"
     },
     "require-dev": {
