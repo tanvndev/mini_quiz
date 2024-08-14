@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Auth\GoogleLoginController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use League\Glide\Server;
@@ -17,7 +17,9 @@ use League\Glide\Server;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    dd(User::all());
+
+    // return view('home');
 });
 Route::get('/emails', function () {
     return view('emails.forgot-email');

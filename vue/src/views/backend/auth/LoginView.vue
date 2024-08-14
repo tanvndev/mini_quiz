@@ -1,5 +1,5 @@
 <template>
-  <a-row>
+  <a-row class="bg-white">
     <a-col span="10">
       <div
         class="coming-soom-image-container flex h-full w-full items-center justify-center bg-[#0162e84d]"

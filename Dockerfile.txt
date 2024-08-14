@@ -1,0 +1,9 @@
+FROM registry-01.cloud.cmctelecom.vn/oesrun-958-9uwx86fzd4hq/wetech-php81-octane-ioncube
+
+COPY --chown=octane:octane . /var/www/html
+
+EXPOSE 80
+
+ENTRYPOINT ["start-container"]
+
+HEALTHCHECK --timeout=10s CMD true

@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  laravel:
+    build:
+      context: ./laravel
+      dockerfile: SwooleCore.Dockerfile
+      args:
+        PHP_VERSION: 8.1
+        COMPOSER_VERSION: latest
+    container_name: laravel_octane
+    volumes:
+      - ./laravel:/var/www/html
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_HOST=mysql_db
+      - DB_PORT=3306
+      - DB_DATABASE=quizz_app
+      - DB_USERNAME=root
+      - DB_PASSWORD=123456
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
+    networks:
+      - quizz-network
+
+  vue:
+    build:
+      context: ./vue
+      dockerfile: Dockerfile
+    container_name: vue_app
+    volumes:
+      - ./vue:/app
+    ports:
+      - "8080:5000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - quizz-network
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysecret
+      - MYSQL_DATABASE=quizz_app
+    ports:
+      - "3307:3306"
+    networks:
+      - quizz-network
+
+volumes:
+  db_data:
+
+networks:
+  quizz-network:
+    driver: bridge

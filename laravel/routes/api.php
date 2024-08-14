@@ -47,7 +47,6 @@ Route::prefix('v1')->group(function () {
     });
 
 
-
     // Routes with JWT Middleware
     Route::group(['middleware' => 'jwt.verify'], function () {
 
