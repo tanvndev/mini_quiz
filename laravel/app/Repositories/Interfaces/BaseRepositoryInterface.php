@@ -4,7 +4,7 @@ namespace App\Repositories\Interfaces;
 
 interface BaseRepositoryInterface
 {
-    public function all($column = ['*'], $relation = [],  $orderBy = null);
+    public function all($column = ['*'], $relation = [],  $orderBy = null, $condition = []);
     public function findById($modelId, $column = ['*'], $relation = []);
     public function findByWhere($conditions = [], $column = ['*'], $relation = [], $all = false, $orderBy = null, $whereInParams = [], $withCount = []);
     public function findByWhereHas($condition = [], $column = ['*'], $relation = [], $alias = '', $all = false);

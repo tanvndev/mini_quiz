@@ -41,6 +41,10 @@ class AuthController extends Controller
             return errorResponse('Vui lòng xác nhận email của bạn trước khi đăng nhập.');
         }
 
+        if ($user->publish != 1) {
+            return errorResponse('Tài khoản của bạn đã bị khóa vui lòng liên hệ nhà phát triển.');
+        }
+
         if ($token = JWTAuth::attempt($credentials)) {
             return $this->respondWithToken($token, 'Đăng nhập thành công.');
         }
@@ -57,6 +61,12 @@ class AuthController extends Controller
     public function me()
     {
         $user = new UserResource(auth()->user());
+
+        if ($user->publish != 1) {
+            $response = errorResponse('Tài khoản của không bị khóa vui bạn liên hệ nhà phát triển.');
+            return response()->json($response, ResponseEnum::UNAUTHORIZED);
+        }
+
         return response()->json($user);
     }
 

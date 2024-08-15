@@ -31,14 +31,20 @@ class QuizzService extends BaseService implements QuizzServiceInterface
         $relation = [
             [
                 'questions' => function ($query) {
-                    $query->with('answers', fn ($query) => $query->select(['id', 'content', 'question_id']));
+                    $query->with('answers', fn($query) => $query->select(['id', 'content', 'question_id']));
                 }
-            ], 'topic'
+            ],
+            'topic'
         ];
 
         $data = request('pageSize') && request('page')
             ? $this->quizzRepository->pagination($select, $condition, request('pageSize'), [], [], $relation)
-            : $this->quizzRepository->all($select, $relation);
+            : $this->quizzRepository->all(
+                $select,
+                $relation,
+                null,
+                ['publish' => ['=', 1]]
+            );
 
         return $data;
     }
@@ -58,7 +64,10 @@ class QuizzService extends BaseService implements QuizzServiceInterface
 
         $data = request('pageSize') && request('page')
             ? $this->resultRepository->pagination($select, $condition, request('pageSize'), [], [], $relation)
-            : $this->resultRepository->all($select, $relation);
+            : $this->resultRepository->all(
+                $select,
+                $relation,
+            );
 
         return $data;
     }

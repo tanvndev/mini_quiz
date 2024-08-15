@@ -64,6 +64,13 @@ class AuthService {
     try {
       const response = await axios.get('/auth/me');
 
+      if (response.status == 'error') {
+        return {
+          success: false,
+          messages: response.messages
+        };
+      }
+
       return {
         success: true,
         data: response

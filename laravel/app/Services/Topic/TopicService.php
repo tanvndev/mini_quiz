@@ -25,7 +25,12 @@ class TopicService extends BaseService implements TopicServiceInterface
 
         $data = request('pageSize') && request('page')
             ? $this->topicRepository->pagination($select, $condition, request('pageSize'))
-            : $this->topicRepository->all($select);
+            : $this->topicRepository->all(
+                $select,
+                [],
+                null,
+                ['publish' => ['=', 1]]
+            );
 
         return $data;
     }
@@ -50,8 +55,8 @@ class TopicService extends BaseService implements TopicServiceInterface
             $payload = request()->except('_token', '_method');
             $this->topicRepository->update($id, $payload);
 
-            return successResponse('Tạo mới thành công.');
-        }, 'Tạo mới thất bại.');
+            return successResponse('Cập nhập thành công.');
+        }, 'Cập nhập thất bại.');
     }
 
 
@@ -61,7 +66,7 @@ class TopicService extends BaseService implements TopicServiceInterface
 
             $this->topicRepository->delete($id);
 
-            return successResponse('Tạo mới thành công.');
-        }, 'Tạo mới thất bại.');
+            return successResponse('Xóa thành công.');
+        }, 'Xóa thất bại.');
     }
 }

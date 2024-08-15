@@ -36,7 +36,14 @@ class UserCatalogueService extends BaseService implements UserCatalogueServiceIn
                 [],
                 ['users']
             )
-            : $this->userCatalogueRepository->all($select, ['permissions']);
+            : $this->userCatalogueRepository->all(
+                $select,
+                ['permissions'],
+                null,
+                [
+                    'publish' => ['=', 1],
+                ]
+            );
 
         return $data;
     }

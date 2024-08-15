@@ -25,12 +25,19 @@ class UserService extends BaseService implements UserServiceInterface
             'searchFields' => ['fullname', 'email', 'phone', 'address'],
         ];
 
-        $select = ['id', 'fullname', 'email', 'phone', 'address', 'publish', 'user_catalogue_id'];
+        $select = ['id', 'fullname', 'email', 'phone', 'address', 'publish', 'user_catalogue_id', 'image'];
         $pageSize = request('pageSize');
 
         $data = $pageSize && request('page')
             ? $this->userRepository->pagination($select, $condition, $pageSize, [], [], ['user_catalogue'])
-            : $this->userRepository->all($select);
+            : $this->userRepository->all(
+                $select,
+                [],
+                null,
+                [
+                    'publish' => ['=', 1],
+                ]
+            );
 
         return $data;
     }

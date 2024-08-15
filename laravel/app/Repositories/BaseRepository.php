@@ -16,12 +16,16 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function all($column = ['*'], $relation = [],  $orderBy = null)
+    public function all($column = ['*'], $relation = [],  $orderBy = null, $condition = [])
     {
         $query = $this->model->select($column);
 
         if (!is_null($orderBy)) {
             $query->customOrderBy($orderBy);
+        }
+
+        if (!empty($condition)) {
+            $query->customWhere($condition);
         }
 
         if (!empty($relation)) {

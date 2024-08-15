@@ -25,25 +25,44 @@ class StoreQuestionRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'content' => 'required',
             'type' => 'required',
             'topic_id' => 'required',
+            'answers' => 'required|array',
         ];
+
+        if ($this->has('answers')) {
+            $answers = $this->input('answers');
+
+            $hasCorrectAnswer = collect($answers)->contains(function ($answer) {
+                return isset($answer['is_correct']) && $answer['is_correct'] == 'true';
+            });
+
+            if (!$hasCorrectAnswer) {
+                $rules['is_correct'] = 'required';
+            }
+        }
+
+        return $rules;
     }
+
 
     public function attributes()
     {
         return [
             'content' => 'Tên chủ đề',
-            'type' => 'Chủ đề cảu hỏi',
-            'topic_id' => 'Chủ đề cảu hỏi',
+            'type' => 'Chủ đề câu hỏi',
+            'topic_id' => 'Chủ đề câu hỏi',
+            'answers' => 'Câu trả lời',
         ];
     }
 
     public function messages()
     {
-        return __('request.messages');
+        return __('request.messages') + [
+            'is_correct.required' => 'Bạn phải chọn ít nhất có 1 câu trả lời chính xác.',
+        ];
     }
 
     public function failedValidation(Validator $validator)
